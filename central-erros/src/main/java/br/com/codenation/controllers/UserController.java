@@ -1,29 +1,25 @@
 package br.com.codenation.controllers;
 
-import br.com.codenation.dto.UserDTO;
-import br.com.codenation.mapper.UserMapper;
-import br.com.codenation.model.User;
-import br.com.codenation.service.UserService;
-import io.swagger.annotations.Api;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
+import br.com.codenation.dtos.UserDTO;
+import br.com.codenation.entities.User;
+import br.com.codenation.mappers.UserMapper;
+import br.com.codenation.repositories.UserRepository;
+import br.com.codenation.services.UserService;
+import io.swagger.annotations.Api;
 
 @RestController
 @RequestMapping("/user")
 @Api(value = "Responsável pelo controle de usuários da aplicação.")
-public class UserController extends AbstractController<User, UserDTO, UUID>{
-
-    private UserService userService;
-    private UserMapper userMapper;
+public class UserController extends BaseController<UserService, UserMapper, UserRepository, User, UserDTO, UUID> {
 
     @Autowired
-    public UserController(UserService userService, UserMapper userMapper){
-        super(userService, userMapper);
-        this.userService = userService;
-        this.userMapper = userMapper;
+    public UserController(UserService service, UserMapper mapper) {
+        super(service, mapper);
     }
-
 }

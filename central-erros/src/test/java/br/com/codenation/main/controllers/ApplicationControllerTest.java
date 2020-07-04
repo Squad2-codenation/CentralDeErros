@@ -25,8 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.Gson;
 
-import br.com.codenation.model.Application;
-import br.com.codenation.service.ApplicationService;
+import br.com.codenation.entities.Application;
+import br.com.codenation.services.ApplicationService;
 
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)

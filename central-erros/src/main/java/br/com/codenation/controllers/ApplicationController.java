@@ -1,27 +1,23 @@
 package br.com.codenation.controllers;
 
-import br.com.codenation.dto.ApplicationDTO;
-import br.com.codenation.mapper.ApplicationMapper;
-import br.com.codenation.model.Application;
-import br.com.codenation.service.ApplicationService;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
+import br.com.codenation.dtos.ApplicationDTO;
+import br.com.codenation.entities.Application;
+import br.com.codenation.mappers.ApplicationMapper;
+import br.com.codenation.repositories.ApplicationRepository;
+import br.com.codenation.services.ApplicationService;
 
 @RestController
 @RequestMapping("/application")
-public class ApplicationController extends AbstractController<Application, ApplicationDTO, UUID> {
-
-    private ApplicationService applicationService;
-    private ApplicationMapper applicationMapper;
+public class ApplicationController extends BaseController<ApplicationService, ApplicationMapper, ApplicationRepository, Application, ApplicationDTO, UUID> {
 
     @Autowired
-    public ApplicationController(ApplicationService service, ApplicationMapper applicationMapper) {
-        super(service, applicationMapper);
-        this.applicationService = service;
-        this.applicationMapper = applicationMapper;
+    public ApplicationController(ApplicationService service, ApplicationMapper mapper) {
+        super(service, mapper);
     }
-
 }

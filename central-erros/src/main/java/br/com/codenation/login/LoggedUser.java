@@ -1,10 +1,11 @@
 package br.com.codenation.login;
 
-import br.com.codenation.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import br.com.codenation.entities.User;
 
 import java.util.ArrayList;
 import java.util.Collection;

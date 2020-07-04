@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import br.com.codenation.model.Application;
+import br.com.codenation.entities.Application;
 import br.com.codenation.repositories.ApplicationRepository;
 
 import static org.hamcrest.Matchers.*;
