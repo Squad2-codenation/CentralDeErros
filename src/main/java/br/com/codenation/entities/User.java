@@ -46,7 +46,6 @@ public class User extends AbstractAuditingEntity implements BaseEntity<UUID> {
 	@Column(columnDefinition = "boolean default true")
 	private Boolean active = true;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Log> errors;
 

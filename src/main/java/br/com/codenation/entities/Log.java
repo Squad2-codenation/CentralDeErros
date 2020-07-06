@@ -2,15 +2,7 @@ package br.com.codenation.entities;
 
 import java.util.UUID;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Formula;
@@ -64,14 +56,7 @@ public class Log extends AbstractAuditingEntity implements BaseEntity<UUID> {
 	@Enumerated(EnumType.STRING)
 	private EnvironmentEnum environment;
 
-	@Formula("(SELECT count(1) " +
-			"FROM log l "+
-			"JOIN application a " +
-			"ON l.application_id = a.id " +
-			"WHERE l.archived = false " +
-			"AND l.level = level " +
-			"AND l.environment = environment " +
-			"AND l.title = title)")
+	@Transient
 	private Long events;
 
 }

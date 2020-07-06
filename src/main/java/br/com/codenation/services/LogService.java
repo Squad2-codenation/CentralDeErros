@@ -26,4 +26,8 @@ public class LogService extends BaseService<LogRepository, Log, UUID> {
 		Page<Log> pageData = repository.findAll(addFilters(params), pageable);
 		return pageData.getContent();
 	}
+
+	public Long countEvents(UUID logId){
+		return repository.countEvents(logId);
+	}
 }

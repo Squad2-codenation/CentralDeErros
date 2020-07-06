@@ -5,8 +5,8 @@ import java.util.UUID;
 import lombok.*;
 
 
-@Data
-@Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class LogDTO {

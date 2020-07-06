@@ -46,7 +46,8 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
                 "/webjars/**", //
                 "/**/*.css", //
                 "/**/*.js"//
-        );
+        ).antMatchers(HttpMethod.POST,
+                "/user");
     }
 
 }
