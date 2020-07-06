@@ -27,7 +27,7 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(email -> userRepository.findByEmail(email)
                 .map(LoggedUser::new)
                 .orElse(null)
-        ).passwordEncoder(NoOpPasswordEncoder.getInstance());
+        ).passwordEncoder(passwordEncoder());
     }
 
     @Override
