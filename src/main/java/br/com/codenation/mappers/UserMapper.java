@@ -18,6 +18,9 @@ public interface UserMapper extends EntityMapper<User, UserDTO> {
 
 	List<UserDTO> toDTOs(List<User> sources);
 
+	@Mapping(target = "token", source = "token",
+			defaultExpression = "java(br.com.codenation.utils.TokenUtil.tokenGenerator(source.getName(), source.getEmail()))")
+	@Mapping(source = "password", target = "password")
 	User toEntity(UserDTO source);
 
 	List<User> toEntities(List<UserDTO> sources);

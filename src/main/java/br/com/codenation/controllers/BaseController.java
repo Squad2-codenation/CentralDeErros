@@ -19,7 +19,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public abstract class BaseController<S extends BaseService<R, E, ID>, M extends EntityMapper<E, D>, R extends JpaRepository<E, ID>, E extends BaseEntity, D, ID> {
+public abstract class BaseController<S extends BaseService<R, E, ID>, M extends EntityMapper<E, D>, R extends JpaRepository<E, ID>, E extends BaseEntity<ID>, D, ID> {
 
 	protected S service;
 	protected M mapper;

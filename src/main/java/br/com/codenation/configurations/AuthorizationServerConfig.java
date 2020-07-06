@@ -17,19 +17,17 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    protected void configure(AuthenticationManagerBuilder auth, UserRepository userRepository) throws Exception {
-        auth.userDetailsService(email -> {
-            return userRepository.findByEmail(email)
-                    .map(LoggedUser::new)
-                    .orElse(null);
-        }).passwordEncoder(NoOpPasswordEncoder.getInstance());
-    }
-
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Autowired
+    protected void configure(AuthenticationManagerBuilder auth, UserRepository userRepository) throws Exception {
+        auth.userDetailsService(email -> userRepository.findByEmail(email)
+                .map(LoggedUser::new)
+                .orElse(null)
+        ).passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 
     @Override

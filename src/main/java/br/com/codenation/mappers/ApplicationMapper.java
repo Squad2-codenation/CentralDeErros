@@ -18,6 +18,8 @@ public interface ApplicationMapper extends EntityMapper<Application, Application
 
 	List<ApplicationDTO> toDTOs(List<Application> sources);
 
+	@Mapping(target = "token", source = "token",
+			defaultExpression = "java(br.com.codenation.utils.TokenUtil.tokenGenerator(source.getName()))")
 	Application toEntity(ApplicationDTO source);
 
 	List<Application> toEntities(List<ApplicationDTO> sources);

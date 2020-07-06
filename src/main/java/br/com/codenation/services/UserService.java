@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import br.com.codenation.dtos.UserDTO;
+import br.com.codenation.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,15 @@ public class UserService extends BaseService<UserRepository, User, UUID> {
 			user.setActive(false);
 			save(user);
 		});
+	}
+
+	public User create(UserDTO userDTO) {
+		return repository.save(User.builder()
+				.name(userDTO.getName())
+				.email(userDTO.getEmail())
+				.token(TokenUtil.tokenGenerator(userDTO.getEmail(), userDTO.getName()))
+//				.password(userDTO.getPassword())
+				.build());
 	}
 
 	public List<User> findWithFilters(Map<Class<?>, Class<?>> params) {
