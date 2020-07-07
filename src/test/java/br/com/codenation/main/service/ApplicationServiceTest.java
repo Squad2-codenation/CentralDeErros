@@ -65,11 +65,10 @@ public class ApplicationServiceTest {
 	
 	
 	private Application createApplication(String name) {
-		Random rand = new Random();
 		Application application = Application.builder()
 				.name(name)
 				.id(UUID.randomUUID())
-				.token(String.valueOf(rand.nextInt()))
+				.token(String.valueOf(new Random().nextInt()))
 				.build();
 		return applicationRepository.save(application);
 	}
