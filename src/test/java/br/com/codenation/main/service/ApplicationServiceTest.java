@@ -20,15 +20,16 @@ import static org.hamcrest.MatcherAssert.*;
 @SpringBootTest
 public class ApplicationServiceTest {
 	
+	public static final String APP_NAME = "127.0.0.1";
+	
 	@Autowired
 	private ApplicationRepository applicationRepository;
 	
 	@Test 
 	@Transactional
 	public void whenFindAllReturns() {
-		Application application1 = createApplication("127.0.0.1");
-				
-		Application application2 = createApplication("189.29.10.2");
+		createApplication(APP_NAME);
+		createApplication("189.29.10.2");
 		
 		List<Application> result = applicationRepository.findAll();
 		
@@ -38,13 +39,30 @@ public class ApplicationServiceTest {
 	@Test 
 	@Transactional
 	public void whenFindByIdReturns() {
-		Application application = createApplication("127.0.0.1");
+		Application application = createApplication(APP_NAME);
 		
 		Optional<Application> result = applicationRepository.findById(application.getId());
 		
 		assertThat(result.isPresent(), is(Boolean.TRUE));
-		assertThat(result.get().getName(), equalTo("127.0.0.1"));
+		assertThat(result.get().getName(), equalTo(APP_NAME));
 	}
+	
+	@Test
+	@Transactional
+	public void whenApplicationWithGivenIdDoesNotExist() {
+		Optional<Application> result = applicationRepository.findById(UUID.randomUUID());
+		
+		assertThat(result.isPresent(), is(Boolean.FALSE));
+	}
+	
+	@Test
+	@Transactional
+	public void whenThereAreNoApplications() {
+		List<Application> result = applicationRepository.findAll();
+		
+		assertThat(result, hasSize(0));
+	}
+	
 	
 	private Application createApplication(String name) {
 		Random rand = new Random();

@@ -26,10 +26,12 @@ import com.google.gson.Gson;
 import br.com.codenation.entities.Application;
 import br.com.codenation.services.ApplicationService;
 
-@AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
+@AutoConfigureMockMvc(addFilters = false)
 public class ApplicationControllerTest {
+	
+	public static final String APP_NAME = "127.0.0.1";
 	
 	@Autowired
 	private MockMvc mvc;
@@ -37,31 +39,30 @@ public class ApplicationControllerTest {
 	@Autowired
 	private ApplicationService applicationservice;
 	
+	private Gson gson = new Gson();
+	
 	@Test
 	@Transactional
 	public void shouldReturnEveryApplication() throws Exception {
-		Application application1 = createApplication("127.0.0.1");
-		
-		Application application2 = createApplication("google.com");
-		
-		
-			ResultActions perform = mvc.perform(get("/application")
-					.contentType(MediaType.APPLICATION_JSON_VALUE))
-					.andExpect(status().isOk())
-					.andExpect(jsonPath("$", hasSize(2)));
-			
-			perform.andExpect(jsonPath("$[0].id", is(application1.getId().toString())));
-			perform.andExpect(jsonPath("$[0].name", is(application1.getName())));
-			perform.andExpect(jsonPath("$[0].token", is(application1.getToken())));
-			
-			perform.andExpect(jsonPath("$[1].id", is(application2.getId().toString())));
-			perform.andExpect(jsonPath("$[1].name", is(application2.getName())));
-			perform.andExpect(jsonPath("$[1].token", is(application2.getToken())));
+		Application application1 = createApplication(APP_NAME);
+
+		Application application2 = createApplication("189.90.2.100");
+
+		ResultActions perform = mvc.perform(get("/application").contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(2)));
+
+		perform.andExpect(jsonPath("$[0].id", is(application1.getId().toString())));
+		perform.andExpect(jsonPath("$[0].name", is(application1.getName())));
+		perform.andExpect(jsonPath("$[0].token", is(application1.getToken())));
+
+		perform.andExpect(jsonPath("$[1].id", is(application2.getId().toString())));
+		perform.andExpect(jsonPath("$[1].name", is(application2.getName())));
+		perform.andExpect(jsonPath("$[1].token", is(application2.getToken())));
 	}
 	
 	@Test 
 	@Transactional 
-	public void shouldNotReturnAnyApplications() throws Exception {
+	public void shouldReturnNoApplications() throws Exception {
 		mvc.perform(get("/application")
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk())
@@ -71,7 +72,7 @@ public class ApplicationControllerTest {
 	@Test
 	@Transactional
 	public void shouldReturnAnApplicationWithTheSameId() throws Exception {
-		Application application = createApplication("127.0.0.1");
+		Application application = createApplication(APP_NAME);
 		
 		ResultActions perform = mvc.perform(get("/application/"+application.getId().toString())
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -86,7 +87,7 @@ public class ApplicationControllerTest {
 	@Test
 	@Transactional
 	public void shouldNotReturnAnyApplicationsBecauseOfInvalidId() throws Exception {
-		Application application = createApplication("google.com");
+		Application application = createApplication(APP_NAME);
 		
 		ResultActions perform = mvc.perform(get("/application/" + UUID.randomUUID().toString())
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -99,11 +100,37 @@ public class ApplicationControllerTest {
 	public void shouldBeSuccessfulWhenCreatingANewApplication() throws Exception {
 		Application application = Application.builder()
 				.id(UUID.randomUUID())
-				.name("127.0.0.1")
+				.name(APP_NAME)
 				.token(String.valueOf(Math.random()))
 				.build();
 		
-		Gson gson = new Gson();
+		String jsonString = gson.toJson(application);
+		
+		mvc.perform(post("/application")
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.content(jsonString))
+				.andExpect(status().is2xxSuccessful());
+	}
+	
+	@Test
+	@Transactional
+	public void shouldReturnAnErrorWhenCreatingApplicationWithWrongIdType() throws Exception {
+		String application = "{'id': 1, 'name':'"+APP_NAME+"'}";
+		
+		ResultActions perform = mvc.perform(post("/application")
+				.content(application))
+				.andExpect(status().is4xxClientError());
+	}
+	
+	@Test
+	@Transactional
+	public void shouldBeSuccesfulWhenUpdatingAnApplication() throws Exception {
+		Application application = Application.builder()
+				.id(UUID.randomUUID())
+				.name(APP_NAME)
+				.token(String.valueOf(Math.random()))
+				.build();
+		
 		String jsonString = gson.toJson(application);
 		
 		ResultActions perform = mvc.perform(post("/application")
@@ -112,18 +139,11 @@ public class ApplicationControllerTest {
 				.andExpect(status().is2xxSuccessful());
 	}
 	
-	@Test
-	@Transactional
-	public void shouldReturnAnErrorBecauseOfWrongIdType() throws Exception {
-		
-	}
-	
 	private Application createApplication(String name) {
-		Random rand = new Random();
 		Application application = Application.builder()
 				.name(name)
 				.id(UUID.randomUUID())
-				.token(String.valueOf(rand.nextInt()))
+				.token(String.valueOf(new Random().nextInt()))
 				.build();
 		return applicationservice.save(application);
 	}
