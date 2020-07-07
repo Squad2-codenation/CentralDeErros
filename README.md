@@ -1,6 +1,6 @@
 
 <h1 align="center">
-  <img width="460" height="300" src="https://github.com/Squad2-codenation/CentralDeErros/blob/develop/banner.jpeg">
+  <img width="400" height="150" src="https://github.com/Squad2-codenation/CentralDeErros/blob/develop/banner.jpeg">
 </h1>
 
 ## Squad2-codenation devs
