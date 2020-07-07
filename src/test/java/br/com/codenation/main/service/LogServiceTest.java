@@ -36,7 +36,7 @@ public class LogServiceTest {
 	
 	@Test
 	@Transactional
-	public void log_whenFindAllIsSuccessful() {
+	public void log_whenFindAllShouldBeSuccessful() {
 		createFirstLog();
 		createSecondLog();
 		
@@ -94,16 +94,17 @@ public class LogServiceTest {
 	@Transactional
 	public void log_whenDeleteShouldBeSuccesful() {
 		Log log = createFirstLog();
+		Log log2 = createSecondLog();
 		
 		List<Log> result = logRepository.findAll();
 		
-		assertThat(result, hasSize(1));
+		assertThat(result, hasSize(2));
 
 		logRepository.delete(log);
 		
 		List<Log> result2 = logRepository.findAll();
 		
-		assertThat(result2, hasSize(0));
+		assertThat(result2, hasSize(1));
 	}
 	
 	private Log createFirstLog() {

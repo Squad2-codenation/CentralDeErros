@@ -27,7 +27,7 @@ public class ApplicationServiceTest {
 	
 	@Test 
 	@Transactional
-	public void whenFindAllReturns() {
+	public void application_whenFindAllShouldBeSuccessful() {
 		createApplication(APP_NAME);
 		createApplication("189.29.10.2");
 		
@@ -36,9 +36,17 @@ public class ApplicationServiceTest {
 		assertThat(result, hasSize(2));
 	}
 	
+	@Test
+	@Transactional
+	public void application_whenFindAllReturnsNothing() {
+		List<Application> result = applicationRepository.findAll();
+		
+		assertThat(result, hasSize(0));
+	}
+	
 	@Test 
 	@Transactional
-	public void whenFindByIdReturns() {
+	public void application_whenFindByIdShouldBeSuccessful() {
 		Application application = createApplication(APP_NAME);
 		
 		Optional<Application> result = applicationRepository.findById(application.getId());
@@ -49,7 +57,7 @@ public class ApplicationServiceTest {
 	
 	@Test
 	@Transactional
-	public void whenApplicationWithGivenIdDoesNotExist() {
+	public void application_whenFindByIdReturnsNothing() {
 		Optional<Application> result = applicationRepository.findById(UUID.randomUUID());
 		
 		assertThat(result.isPresent(), is(Boolean.FALSE));
@@ -57,12 +65,34 @@ public class ApplicationServiceTest {
 	
 	@Test
 	@Transactional
-	public void whenThereAreNoApplications() {
-		List<Application> result = applicationRepository.findAll();
+	public void application_whenSavingShouldBeSuccessful() {
+		Application application = Application.builder()
+				.name(APP_NAME)
+				.id(UUID.randomUUID())
+				.token(String.valueOf(new Random().nextInt()))
+				.build();
 		
-		assertThat(result, hasSize(0));
+		Application result = applicationRepository.save(application);
+		
+		assertThat(result.getName(), equalTo(application.getName()));
 	}
 	
+	@Test
+	@Transactional
+	public void application_whenDeleteShouldBeSuccessful() {
+		Application application = createApplication(APP_NAME);
+		Application application2 = createApplication("189.90.2.80");
+		
+		List<Application> result = applicationRepository.findAll();
+		
+		assertThat(result, hasSize(2));
+		
+		applicationRepository.delete(application);
+		
+		List<Application> result2 = applicationRepository.findAll();
+		
+		assertThat(result2, hasSize(1));
+	}
 	
 	private Application createApplication(String name) {
 		Application application = Application.builder()
