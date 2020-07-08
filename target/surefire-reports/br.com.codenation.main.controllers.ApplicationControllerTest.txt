@@ -1,0 +1,24 @@
+-------------------------------------------------------------------------------
+Test set: br.com.codenation.main.controllers.ApplicationControllerTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 5, Errors: 0, Skipped: 0, Time elapsed: 5.363 s <<< FAILURE! - in br.com.codenation.main.controllers.ApplicationControllerTest
+shouldBeSuccessfulWhenCreatingANewApplication  Time elapsed: 0.691 s  <<< FAILURE!
+java.lang.AssertionError: Range for response status value 401 expected:<SUCCESSFUL> but was:<CLIENT_ERROR>
+	at br.com.codenation.main.controllers.ApplicationControllerTest.shouldBeSuccessfulWhenCreatingANewApplication(ApplicationControllerTest.java:115)
+
+shouldReturnEveryApplication  Time elapsed: 0.274 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<401>
+	at br.com.codenation.main.controllers.ApplicationControllerTest.shouldReturnEveryApplication(ApplicationControllerTest.java:53)
+
+shouldNotReturnAnyApplications  Time elapsed: 0.092 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<401>
+	at br.com.codenation.main.controllers.ApplicationControllerTest.shouldNotReturnAnyApplications(ApplicationControllerTest.java:70)
+
+shouldReturnAnApplicationWithTheSameId  Time elapsed: 0.046 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<401>
+	at br.com.codenation.main.controllers.ApplicationControllerTest.shouldReturnAnApplicationWithTheSameId(ApplicationControllerTest.java:81)
+
+shouldNotReturnAnyApplicationsBecauseOfInvalidId  Time elapsed: 0.096 s  <<< FAILURE!
+java.lang.AssertionError: Range for response status value 401 expected:<SUCCESSFUL> but was:<CLIENT_ERROR>
+	at br.com.codenation.main.controllers.ApplicationControllerTest.shouldNotReturnAnyApplicationsBecauseOfInvalidId(ApplicationControllerTest.java:96)
+
