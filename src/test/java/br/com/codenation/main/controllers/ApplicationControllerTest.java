@@ -30,8 +30,8 @@ import com.google.gson.Gson;
 import br.com.codenation.entities.Application;
 import br.com.codenation.services.ApplicationService;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
+@ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc(addFilters = false)
 public class ApplicationControllerTest {
 	

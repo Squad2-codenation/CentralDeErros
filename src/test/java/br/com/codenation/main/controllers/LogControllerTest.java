@@ -1,11 +1,12 @@
 package br.com.codenation.main.controllers;
 
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -24,22 +25,17 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.gson.Gson;
-
 import br.com.codenation.entities.Application;
 import br.com.codenation.entities.Log;
 import br.com.codenation.entities.User;
 import br.com.codenation.enums.EnvironmentEnum;
 import br.com.codenation.enums.LevelEnum;
-import br.com.codenation.mappers.LogMapper;
-import br.com.codenation.repositories.ApplicationRepository;
-import br.com.codenation.repositories.UserRepository;
 import br.com.codenation.services.ApplicationService;
 import br.com.codenation.services.LogService;
 import br.com.codenation.services.UserService;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
+@ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc(addFilters = false)
 public class LogControllerTest {
 	
@@ -54,11 +50,7 @@ public class LogControllerTest {
 	
 	@Autowired
 	private ApplicationService applicationService;
-	
-	private LogMapper logMapper;
-	
-	private Gson gson = new Gson();
-	
+		
 	@Test
 	@Transactional
 	public void log_shouldReturnAllRecords() throws Exception {
