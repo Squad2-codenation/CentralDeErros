@@ -2,6 +2,7 @@ package br.com.codenation.main.controllers;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.MatcherAssert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -9,6 +10,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -39,7 +41,7 @@ public class ApplicationControllerTest {
 	private MockMvc mvc;
 	
 	@Autowired
-	private ApplicationService applicationservice;
+	private ApplicationService applicationService;
 	
 	private Gson gson = new Gson();
 	
@@ -152,28 +154,21 @@ public class ApplicationControllerTest {
 	
 	@Test
 	@Transactional
-	public void shouldNotBeSuccesfulWhenUpdatingWithAnInvalidId() throws Exception {
-		Application application = Application.builder()
-				.id(UUID.randomUUID())
-				.name(APP_NAME)
-				.token(String.valueOf(Math.random()))
-				.build();
+	public void application_shouldBeSuccessfulWhenDeletingARecord() throws Exception {
+		Application application1 = createApplication(APP_NAME);
+		Application application2 = createApplication("189.90.10.111");
 		
-		String jsonString = gson.toJson(application);
+		List<Application> applicationsSaved = applicationService.findAll();
 		
-		ResultActions perform = mvc.perform(post("/application")
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.content(jsonString))
+		assertThat(applicationsSaved, hasSize(2));
+		
+		ResultActions result = mvc.perform(delete("/application/" + application1.getId().toString())
+				.contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().is2xxSuccessful());
 		
-		application.setName("189.70.0.1");
+		List<Application> applicationsAfterDeleting = applicationService.findAll();
 		
-		String jsonStringUpdate = gson.toJson(application);
-		
-		ResultActions resultUpdate = mvc.perform(put("/application/" + UUID.randomUUID().toString())
-				.content(jsonStringUpdate)
-				.contentType(MediaType.APPLICATION_JSON_VALUE))
-				.andExpect(status().is4xxClientError());
+		assertThat(applicationsAfterDeleting, hasSize(1));
 	}
 	
 	private Application createApplication(String name) {
@@ -182,6 +177,6 @@ public class ApplicationControllerTest {
 				.id(UUID.randomUUID())
 				.token(String.valueOf(new Random().nextInt()))
 				.build();
-		return applicationservice.save(application);
+		return applicationService.save(application);
 	}
  }

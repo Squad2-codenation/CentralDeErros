@@ -28,8 +28,10 @@ import com.google.gson.Gson;
 
 import br.com.codenation.entities.Application;
 import br.com.codenation.entities.Log;
+import br.com.codenation.entities.User;
 import br.com.codenation.enums.EnvironmentEnum;
 import br.com.codenation.enums.LevelEnum;
+import br.com.codenation.mappers.LogMapper;
 import br.com.codenation.repositories.ApplicationRepository;
 import br.com.codenation.repositories.UserRepository;
 import br.com.codenation.services.ApplicationService;
@@ -52,7 +54,9 @@ public class LogControllerTest {
 	
 	@Autowired
 	private ApplicationService applicationService;
-
+	
+	private LogMapper logMapper;
+	
 	private Gson gson = new Gson();
 	
 	@Test
@@ -106,17 +110,10 @@ public class LogControllerTest {
 	@Test
 	@Transactional 
 	public void log_shouldBeSuccessfulWhenCreatingANewRecord() throws Exception {
-		Log log = Log.builder()
-				.id(UUID.randomUUID())
-				.title("acceleration.Service.AddCandidate: <forbidden>")
-				.details("File \"/br/com/codenation/service/CandidateService.java\", line 83, in findAll")
-				.application(createApplication())
-				.environment(EnvironmentEnum.DEVELOPMENT)
-				.level(LevelEnum.DEBUG)
-				.user(createUser())
-				.build();	
+		Application application = createApplication();
+		User user = createUser();
 		
-		String jsonString = gson.toJson(log);
+		String jsonString = createLogJson(application, user);
 		
 		mvc.perform(post("/log")
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -135,22 +132,24 @@ public class LogControllerTest {
 				.environment(EnvironmentEnum.DEVELOPMENT)
 				.level(LevelEnum.DEBUG)
 				.user(createUser())
+				.archived(false)
 				.build();
 		
-		String jsonString = gson.toJson(log);
-		
-		mvc.perform(post("/log")
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.content(jsonString))
-				.andExpect(status().is2xxSuccessful());
+		logService.save(log);
 		
 		List<Log> logsSaved = logService.findAll();
 		
 		assertThat(logsSaved, hasSize(1));
 		
-		log.setEnvironment(EnvironmentEnum.PRODUCTION);
-			
-		String jsonStringUpdate = gson.toJson(log);
+		String jsonStringUpdate = "{\"title\":\"acceleration.Service.AddCandidate: \u003cforbidden\u003e\"," +
+				"\"details\":\"File \\\"/br/com/codenation/service/CandidateService.java\\\", line 83, in findAll\"," +
+				"\"level\":\"WARNING\"," +
+				"\"applicationId\": \"11b6ac13-ad53-4b44-a530-3e8772ebcd51\"," +
+				"\"applicationName\": \"217.0.0.1\"," +
+				"\"archived\": null," +
+				"\"userId\": \"91b6ac13-ad53-4b44-a530-3e8772ebcd51\"," +
+				"\"userName\": \"Jobison\"," +
+				"\"environment\":\"PRODUCTION\"} ";
 		
 		ResultActions resultUpdate = mvc.perform(put("/log/" + log.getId().toString())
 				.content(jsonStringUpdate)
@@ -175,6 +174,32 @@ public class LogControllerTest {
 		List<Log> logsAfterDeleting = logService.findAll();
 		
 		assertThat(logsAfterDeleting, hasSize(1));
+	}
+	
+	@Test 
+	@Transactional
+	public void log_shouldReturnOnlyLogsWhereLevelIsDebug() throws Exception {
+		Log log1 = createFirstLog();
+		Log log2 = createSecondLog(); 
+		Log log3 = createFirstLog();
+		Log log4 = createFirstLog();
+		
+		ResultActions result = mvc.perform(get("/log/filter?level=DEBUG")
+				.contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(3)));
+	}
+	
+	private String createLogJson(Application application, User user) {
+		return "{\"id\":\"5e1f76f2-5750-457e-be9d-14108eb70a7e\"," + 
+				"\"title\":\"acceleration.Service.AddCandidate: \u003cforbidden\u003e\"," +
+				"\"details\":\"File \\\"/br/com/codenation/service/CandidateService.java\\\", line 83, in findAll\"," +
+				"\"level\":\"DEBUG\"," +
+				"\"applicationId\": \""+application.getId().toString()+"\"," +
+				"\"applicationName\": \""+application.getName()+"\"," +
+				"\"archived\": null," +
+				"\"userId\": \""+user.getId().toString()+"\"," +
+				"\"userName\": \""+user.getName()+"\"," +
+				"\"environment\":\"DEVELOPMENT\"} ";
 	}
 	
 	private Log createFirstLog() {
@@ -215,8 +240,8 @@ public class LogControllerTest {
 		return applicationService.save(application);
 	}
 	
-	private br.com.codenation.entities.User createUser() {
-		br.com.codenation.entities.User user = br.com.codenation.entities.User.builder()
+	private User createUser() {
+		User user = User.builder()
 				.name("Alex Turner")
 				.email("alexturner@am.com.br")
 				.password("123456")
