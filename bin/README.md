@@ -1,3 +1,7 @@
+# CentralDeErros
+
+Link Collection Postman: https://app.getpostman.com/join-team?invite_code=a6d287aac7ba7edcfc395f95c006755b
+=======
 <h1 align="center"><img width="900" height="150" src="https://github.com/Squad2-codenation/CentralDeErros/blob/develop/banner_inicio.jpeg"></h1>
 
 <p align="center">
@@ -67,5 +71,3 @@ https://app.getpostman.com/join-team?invite_code=a6d287aac7ba7edcfc395f95c006755
 ## Como Rodar a Aplicação
 
 ## Como Rodar os Testes
-
-
