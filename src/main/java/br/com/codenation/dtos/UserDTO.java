@@ -2,15 +2,13 @@ package br.com.codenation.dtos;
 
 import java.util.UUID;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserDTO {
 	
 	private UUID id;
@@ -20,4 +18,8 @@ public class UserDTO {
 	private Boolean active;
 	private String createdAt;
 	private String updatedAt;
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private String password;
+
 }

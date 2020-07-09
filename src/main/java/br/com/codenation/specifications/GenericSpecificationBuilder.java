@@ -14,8 +14,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.util.MultiValueMap;
-import org.springframework.util.StringUtils;
 
 import br.com.codenation.enums.EnvironmentEnum;
 import br.com.codenation.enums.LevelEnum;

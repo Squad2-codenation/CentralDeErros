@@ -14,10 +14,11 @@ import br.com.codenation.services.ApplicationService;
 
 @RestController
 @RequestMapping("/application")
-public class ApplicationController extends BaseController<ApplicationService, ApplicationMapper, ApplicationRepository, Application, ApplicationDTO, UUID> {
+public class ApplicationController extends
+		BaseController<ApplicationService, ApplicationMapper, ApplicationRepository, Application, ApplicationDTO, UUID> {
 
-    @Autowired
-    public ApplicationController(ApplicationService service, ApplicationMapper mapper) {
-        super(service, mapper);
-    }
+	@Autowired
+	public ApplicationController(ApplicationService service, ApplicationMapper mapper) {
+		super(service, mapper);
+	}
 }

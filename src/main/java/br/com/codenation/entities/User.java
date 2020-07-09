@@ -3,14 +3,16 @@ package br.com.codenation.entities;
 import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.codenation.entities.interfaces.BaseEntity;
 import lombok.AllArgsConstructor;
@@ -46,7 +48,6 @@ public class User extends AbstractAuditingEntity implements BaseEntity<UUID> {
 	@Column(columnDefinition = "boolean default true")
 	private Boolean active = true;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Log> errors;
 

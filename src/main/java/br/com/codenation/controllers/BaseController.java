@@ -1,6 +1,7 @@
 package br.com.codenation.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public abstract class BaseController<S extends BaseService<R, E, ID>, M extends EntityMapper<E, D>, R extends JpaRepository<E, ID>, E extends BaseEntity, D, ID> {
+public abstract class BaseController<S extends BaseService<R, E, ID>, M extends EntityMapper<E, D>, R extends JpaRepository<E, ID>, E extends BaseEntity<ID>, D, ID> {
 
 	protected S service;
 	protected M mapper;
@@ -28,7 +29,7 @@ public abstract class BaseController<S extends BaseService<R, E, ID>, M extends 
 	@ResponseStatus(HttpStatus.OK)
 	@ApiOperation(value = "Lista todas os models")
 	public List<D> listAll() {
-		return mapper.toDTOs(service.findAll());
+		return service.findAll().stream().map(mapper::toDTO).collect(Collectors.toList());
 	}
 
 	@GetMapping("/{id}")

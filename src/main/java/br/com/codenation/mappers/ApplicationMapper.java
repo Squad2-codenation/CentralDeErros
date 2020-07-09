@@ -1,7 +1,5 @@
 package br.com.codenation.mappers;
 
-import java.util.List;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -16,10 +14,8 @@ public interface ApplicationMapper extends EntityMapper<Application, Application
 	@Mapping(source = "updatedAt", target = "updatedAt", dateFormat = "yyyy-MM-dd HH:mm")
 	ApplicationDTO toDTO(Application source);
 
-	List<ApplicationDTO> toDTOs(List<Application> sources);
-
+	@Mapping(target = "token", source = "token",
+			defaultExpression = "java(br.com.codenation.utils.TokenUtil.tokenGenerator(source.getName()))")
 	Application toEntity(ApplicationDTO source);
-
-	List<Application> toEntities(List<ApplicationDTO> sources);
 
 }

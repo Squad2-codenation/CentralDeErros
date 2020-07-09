@@ -1,7 +1,6 @@
 package br.com.codenation.mappers;
 
-import java.util.List;
-
+import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -11,7 +10,8 @@ import br.com.codenation.mappers.interfaces.EntityMapper;
 import br.com.codenation.services.ApplicationService;
 import br.com.codenation.services.UserService;
 
-@Mapper(componentModel = "spring", uses = { ApplicationService.class, UserService.class })
+@DecoratedWith(LogMapperDecorator.class)
+@Mapper(componentModel = "spring", uses = { ApplicationService.class, UserService.class})
 public interface LogMapper extends EntityMapper<Log, LogDTO> {
 
 	@Mapping(source = "application.id", target = "applicationId")
@@ -22,12 +22,8 @@ public interface LogMapper extends EntityMapper<Log, LogDTO> {
 	@Mapping(source = "updatedAt", target = "updatedAt", dateFormat = "yyyy-MM-dd HH:mm")
 	LogDTO toDTO(Log source);
 
-	List<LogDTO> toDTOs(List<Log> sources);
-
-	@Mapping(source = "applicationId", target = "application")
-	@Mapping(source = "userId", target = "user")
+	@Mapping(source = "applicationId", target = "application.id")
+	@Mapping(source = "userId", target = "user.id")
 	Log toEntity(LogDTO source);
-
-	List<Log> toEntities(List<LogDTO> sources);
 
 }

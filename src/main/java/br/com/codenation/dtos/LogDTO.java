@@ -2,17 +2,13 @@ package br.com.codenation.dtos;
 
 import java.util.UUID;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class LogDTO  {
+@AllArgsConstructor
+public class LogDTO {
 
     private UUID id;
     private String title;
