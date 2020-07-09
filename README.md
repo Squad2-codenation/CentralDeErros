@@ -35,7 +35,9 @@
 :white_square_button: [Desenvolvedores](#squad2-codenation-devs)  
 :white_square_button: [Sobre o Projeto](#sobre-o-projeto)  
 :white_square_button: [Funcionalidades](#funcionalidades)  
-:white_square_button: [Modelagem do Banco de Dados](#modelagem-do-banco-de-dados)  
+:white_square_button: [Modelagem do Banco de Dados](#modelagem-do-banco-de-dados)   
+:white_square_button: [Tarefas Realizadas](#tarefas-realizadas)  
+:white_square_button: [Verificação Sonar](#verificacao-sonar)  
 :white_square_button: [Collection do Postman](#collection-postman)  
 :white_square_button: [Deploy da Aplicação](#deploy-da-aplicação)  
 :white_square_button: [Como Rodar a Aplicação](#como-rodar-a-aplicação)  
@@ -58,7 +60,7 @@
 :heavy_check_mark: Permitir criar, buscar, alterar, deletar e arquivar registros de logs  
 
 ## Modelagem do banco de dados
-<img src="https://github.com/Squad2-codenation/CentralDeErros/blob/master/DiagramaDeClasses.png"/>
+<img src="https://github.com/Squad2-codenation/CentralDeErros/blob/master/DiagramaDeClasses1.png"/>
 
 ## Tarefas realizadas
 <p>
