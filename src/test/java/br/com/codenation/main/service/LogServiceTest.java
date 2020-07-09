@@ -116,7 +116,8 @@ public class LogServiceTest {
 				.level(LevelEnum.DEBUG)
 				.user(createUser())
 				.id(UUID.randomUUID())
-				.build();		
+				.build();	
+		
 		return logRepository.save(log);
 	}
 	
@@ -130,6 +131,7 @@ public class LogServiceTest {
 				.user(createUser())
 				.id(UUID.randomUUID())
 				.build();		
+		
 		return logRepository.save(log);
 	}
 	
@@ -139,6 +141,7 @@ public class LogServiceTest {
 				.id(UUID.randomUUID())
 				.token(String.valueOf(new Random().nextInt()))
 				.build();
+		
 		return applicationRepository.save(application);
 	}
 	
@@ -149,6 +152,7 @@ public class LogServiceTest {
 				.password("123456")
 				.id(UUID.randomUUID())
 				.build();
+		
 		return userRepository.save(user);
 	}
 }

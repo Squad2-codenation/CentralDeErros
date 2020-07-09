@@ -4,6 +4,8 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -137,6 +139,41 @@ public class ApplicationControllerTest {
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(jsonString))
 				.andExpect(status().is2xxSuccessful());
+		
+		application.setName("189.70.0.1");
+		
+		String jsonStringUpdate = gson.toJson(application);
+		
+		ResultActions resultUpdate = mvc.perform(put("/application/" + application.getId().toString())
+				.content(jsonStringUpdate)
+				.contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(status().is2xxSuccessful());
+	}
+	
+	@Test
+	@Transactional
+	public void shouldNotBeSuccesfulWhenUpdatingWithAnInvalidId() throws Exception {
+		Application application = Application.builder()
+				.id(UUID.randomUUID())
+				.name(APP_NAME)
+				.token(String.valueOf(Math.random()))
+				.build();
+		
+		String jsonString = gson.toJson(application);
+		
+		ResultActions perform = mvc.perform(post("/application")
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.content(jsonString))
+				.andExpect(status().is2xxSuccessful());
+		
+		application.setName("189.70.0.1");
+		
+		String jsonStringUpdate = gson.toJson(application);
+		
+		ResultActions resultUpdate = mvc.perform(put("/application/" + UUID.randomUUID().toString())
+				.content(jsonStringUpdate)
+				.contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(status().is4xxClientError());
 	}
 	
 	private Application createApplication(String name) {
