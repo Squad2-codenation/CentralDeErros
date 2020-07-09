@@ -1,7 +1,5 @@
 package br.com.codenation.mappers;
 
-import java.util.List;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

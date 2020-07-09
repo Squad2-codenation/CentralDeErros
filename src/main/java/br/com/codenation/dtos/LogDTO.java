@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import lombok.*;
 
-
 @Getter
 @Setter
 @NoArgsConstructor

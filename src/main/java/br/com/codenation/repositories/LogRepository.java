@@ -1,6 +1,7 @@
 package br.com.codenation.repositories;
 
-import org.hibernate.annotations.Formula;
+import java.util.UUID;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -8,8 +9,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.com.codenation.entities.Log;
-
-import java.util.UUID;
 
 @Repository
 public interface LogRepository extends JpaRepository<Log, UUID>, JpaSpecificationExecutor<Log> {
