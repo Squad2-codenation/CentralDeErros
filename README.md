@@ -55,17 +55,42 @@
 :heavy_check_mark: Permitir listagem dos eventos com filtros de level, aplicação, ambiente e usuário  
 :heavy_check_mark: Suportar paginação  
 :heavy_check_mark: Calcular quantidade de eventos similares  
-:heavy_check_mark: Permitir criar, buscar, alterar e deletar registros de logs  
+:heavy_check_mark: Permitir criar, buscar, alterar, deletar e arquivar registros de logs  
 
-## Modelagem do Banco de Dados
+## Modelagem do banco de dados
+<img src="https://github.com/Squad2-codenation/CentralDeErros/blob/master/DiagramaDeClasses.png"/>
+
+## Tarefas realizadas
+<p>
+  <img src="http://img.shields.io/static/v1?label=DEVOPS&message=4%20TAREFAS&color=blue&style=for-the-badge"/> 
+  <img src="http://img.shields.io/static/v1?label=REALIZADAS&message=0%&color=red&style=for-the-badge"/>
+</p>
+<p>
+  <img src="http://img.shields.io/static/v1?label=BACK-END&message=34%20TAREFAS&color=blue&style=for-the-badge"/> 
+  <img src="http://img.shields.io/static/v1?label=REALIZADAS&message=73,53%&color=yellow&style=for-the-badge"/>
+</p>
+<p>
+  <img src="http://img.shields.io/static/v1?label=DOCUMENTACAO&message=7%20TAREFAS&color=blue&style=for-the-badge"/> 
+  <img src="http://img.shields.io/static/v1?label=REALIZADAS&message=42,86%&color=yellow&style=for-the-badge"/>
+</p>
+<p>
+  <img src="http://img.shields.io/static/v1?label=BANCO%20DE%20DADOS&message=5%20TAREFAS&color=blue&style=for-the-badge"/> 
+  <img src="http://img.shields.io/static/v1?label=REALIZADAS&message=80%&color=green&style=for-the-badge"/>
+</p>
+<p>
+  <img src="http://img.shields.io/static/v1?label=FRONT-END&message=6%20TAREFAS&color=blue&style=for-the-badge"/> 
+  <img src="http://img.shields.io/static/v1?label=REALIZADAS&message=0%&color=red&style=for-the-badge"/>
+</p>
+
+## Verificacao Sonar
 
 ## Collection Postman
 https://app.getpostman.com/join-team?invite_code=a6d287aac7ba7edcfc395f95c006755b
 
-## Deploy da Aplicação
+## Deploy da aplicação
 
-## Como Rodar a Aplicação
+## Como rodar a aplicação
 
-## Como Rodar os Testes
+## Como rodar os testes
 
 
