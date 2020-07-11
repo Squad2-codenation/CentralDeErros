@@ -17,7 +17,7 @@
     <img src="https://img.shields.io/static/v1?label=postgres&message=database&color=blue&style=for-the-badge&logo=POSTGRESQL"/>
   </a>
   <a href="https://www.sonarqube.org/">
-    <img src="https://img.shields.io/static/v1?label=sonar&message=3.7.4&color=blue&style=for-the-badge&logo=SONARQUBE"/>
+    <img src="https://img.shields.io/static/v1?label=sonar&message=6.7.7&color=blue&style=for-the-badge&logo=SONARQUBE"/>
   </a>
   <a href="https://www.postman.com/">
     <img src="https://img.shields.io/static/v1?label=postman&message=7.27.1&color=orange&style=for-the-badge&logo=POSTMAN"/>
@@ -28,6 +28,9 @@
   <a href="https://trello.com/">
     <img src="https://img.shields.io/static/v1?label=trello&message=follow%20up&color=blue&style=for-the-badge&logo=TRELLO"/>
   </a>
+  <a href="https://github.com/features/actions">
+    <img src="https://img.shields.io/static/v1?label=github%20actions&message=CI/CD&color=blue&style=for-the-badge&logo=GITHUB"/>
+  </a>
     <img src="http://img.shields.io/static/v1?label=STATUS&message=desenvolvimento&color=blue&style=for-the-badge"/>
 </p>
 
@@ -35,13 +38,14 @@
 :white_square_button: [Desenvolvedores](#squad2-codenation-devs)  
 :white_square_button: [Sobre o Projeto](#sobre-o-projeto)  
 :white_square_button: [Funcionalidades](#funcionalidades)  
-:white_square_button: [Modelagem do Banco de Dados](#modelagem-do-banco-de-dados)   
+:white_square_button: [Diagrama de Classes](#diagrama-de-classes)   
 :white_square_button: [Tarefas Realizadas](#tarefas-realizadas)  
 :white_square_button: [Verificação Sonar](#verificacao-sonar)  
-:white_square_button: [Collection do Postman](#collection-postman)  
+:white_square_button: [Link Swagger](#link-swagger)  
 :white_square_button: [Deploy da Aplicação](#deploy-da-aplicação)  
-:white_square_button: [Como Rodar a Aplicação](#como-rodar-a-aplicação)  
-:white_square_button: [Como Rodar os Testes](#como-rodar-os-testes)  
+:white_square_button: [Aplicação](#aplicação)  
+:white_square_button: [Testes](#testes)  
+:white_square_button: [Implementações futuras](#implementações-futuras)  
 
 ## Squad2-codenation devs
 [<img src="https://avatars1.githubusercontent.com/u/19240084?s=460&u=49e6d58063c57d8f98d087601b57f3794b5b253b&v=4" width=115 > <br> <sub> Adson Gregório  </sub>](https://github.com/adsonmg) | [<img src="https://avatars0.githubusercontent.com/u/55720745?s=460&u=f743d6664292354498de02607678e58f22f46db4&v=4" width=115 > <br> <sub> Clarice Ribeiro </sub>](https://github.com/Claarice) | [<img src="https://avatars3.githubusercontent.com/u/30726011?s=460&u=b8973775460e3c41e54a2b8d03ed79955a7ddca2&v=4" width=115 > <br> <sub> Gustavo Funchal </sub>](https://github.com/Delagustta) | [<img src="https://avatars2.githubusercontent.com/u/33843669?s=460&v=4" width=115 > <br> <sub> Ioná Vieira  </sub>](https://github.com/ionavieira) | [<img src="https://avatars3.githubusercontent.com/u/48466006?s=400&u=1e7e1fd6fcfb5e52d8d703f39f14defc3084ba00&v=4" width=115 > <br> <sub> Sávio Amorim </sub>](https://github.com/savioamorim) |
@@ -58,41 +62,54 @@
 :heavy_check_mark: Suportar paginação  
 :heavy_check_mark: Calcular quantidade de eventos similares  
 :heavy_check_mark: Permitir criar, buscar, alterar, deletar e arquivar registros de logs  
+:heavy_check_mark: CI/CD    
 
-## Modelagem do banco de dados
-<img src="https://github.com/Squad2-codenation/CentralDeErros/blob/master/DiagramaDeClasses1.png"/>
+## Diagrama de Classes
+<img src="https://github.com/Squad2-codenation/CentralDeErros/blob/master/DiagramaDeClasses_1.png"/>
 
 ## Tarefas realizadas
 <p>
-  <img src="http://img.shields.io/static/v1?label=DEVOPS&message=4%20TAREFAS&color=blue&style=for-the-badge"/> 
-  <img src="http://img.shields.io/static/v1?label=REALIZADAS&message=0%&color=red&style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/DEVOPS-5%20TAREFAS-blue"/> 
+  <img src="https://img.shields.io/badge/REALIZADAS-0%25-red"/>
 </p>
 <p>
-  <img src="http://img.shields.io/static/v1?label=BACK-END&message=34%20TAREFAS&color=blue&style=for-the-badge"/> 
-  <img src="http://img.shields.io/static/v1?label=REALIZADAS&message=73,53%&color=yellow&style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/BACK-END-34%20TAREFAS-blue"/> 
+  <img src="https://img.shields.io/badge/REALIZADAS-73,53%25-yellow"/>
 </p>
 <p>
-  <img src="http://img.shields.io/static/v1?label=DOCUMENTACAO&message=7%20TAREFAS&color=blue&style=for-the-badge"/> 
-  <img src="http://img.shields.io/static/v1?label=REALIZADAS&message=42,86%&color=yellow&style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/DOCUMENTACAO-7%20TAREFAS-blue"/> 
+  <img src="https://img.shields.io/badge/REALIZADAS-42,86%25-yellow"/>
 </p>
 <p>
-  <img src="http://img.shields.io/static/v1?label=BANCO%20DE%20DADOS&message=5%20TAREFAS&color=blue&style=for-the-badge"/> 
-  <img src="http://img.shields.io/static/v1?label=REALIZADAS&message=80%&color=green&style=for-the-badge"/>
-</p>
-<p>
-  <img src="http://img.shields.io/static/v1?label=FRONT-END&message=6%20TAREFAS&color=blue&style=for-the-badge"/> 
-  <img src="http://img.shields.io/static/v1?label=REALIZADAS&message=0%&color=red&style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/BANCO%20DE%20DADOS-5%20TAREFAS-blue"/> 
+  <img src="https://img.shields.io/badge/REALIZADAS-80%25-green"/>
 </p>
 
 ## Verificacao Sonar
 
-## Collection Postman
-https://app.getpostman.com/join-team?invite_code=a6d287aac7ba7edcfc395f95c006755b
+## Link Swagger 
+https://centralerros-api.herokuapp.com/swagger-ui.html
 
-## Deploy da aplicação
+<table>
+  <thead>
+    <th>Usuário</th>
+    <th>Senha</th>
+  </thead>
+  <tbody>
+    <tr> 
+      <td>teste</td>
+      <td>123</td>
+    </tr>
+  </tbody>  
+</table>
 
-## Como rodar a aplicação
+## Aplicação
+* Para rodar a aplicação utilize o comando <code>git clone https://github.com/Squad2-codenation/CentralDeErros.git</code>
+* Escolha sua IDE de preferência
 
-## Como rodar os testes
+## Testes
+* Para rodar os testes utilize o comando <code>mvn test</code>
 
+## Implementações futuras
+* Implementação do front-end
 
