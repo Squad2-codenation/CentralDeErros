@@ -14,8 +14,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class ResponseError {
 
-	private String mensagem;
-	private String detalhe;
+	private String message;
+	private String detail;
 	private Long timesTamp;
 	private String path;
 
