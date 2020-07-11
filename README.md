@@ -73,7 +73,7 @@
   <img src="https://img.shields.io/badge/REALIZADAS-0%25-red"/>
 </p>
 <p>
-  <img src="https://img.shields.io/badge/BACK-END-34%20TAREFAS-blue"/> 
+  <img src="https://img.shields.io/badge/BACKEND-34%20TAREFAS-blue"/> 
   <img src="https://img.shields.io/badge/REALIZADAS-73,53%25-yellow"/>
 </p>
 <p>
