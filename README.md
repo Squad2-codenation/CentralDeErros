@@ -40,9 +40,8 @@
 :white_square_button: [Funcionalidades](#funcionalidades)  
 :white_square_button: [Diagrama de Classes](#diagrama-de-classes)   
 :white_square_button: [Tarefas Realizadas](#tarefas-realizadas)  
-:white_square_button: [Verificação Sonar](#verificacao-sonar)  
+:white_square_button: [Verificação Sonar](#verificação-sonar)  
 :white_square_button: [Link Swagger](#link-swagger)  
-:white_square_button: [Deploy da Aplicação](#deploy-da-aplicação)  
 :white_square_button: [Aplicação](#aplicação)  
 :white_square_button: [Testes](#testes)  
 :white_square_button: [Implementações futuras](#implementações-futuras)  
@@ -85,7 +84,7 @@
   <img src="https://img.shields.io/badge/REALIZADAS-80%25-green"/>
 </p>
 
-## Verificacao Sonar
+## Verificação Sonar
 
 ## Link Swagger 
 https://centralerros-api.herokuapp.com/swagger-ui.html
