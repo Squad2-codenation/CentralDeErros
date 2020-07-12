@@ -22,9 +22,8 @@ public class LogService extends BaseService<LogRepository, Log, UUID> {
 		super(repository);
 	}
 
-	public List<Log> findWithFilters(Map<Class<?>, Class<?>> params, Pageable pageable) {
-		Page<Log> pageData = repository.findAll(addFilters(params), pageable);
-		return pageData.getContent();
+	public Page<Log> findWithFilters(Map<Class<?>, Class<?>> params, Pageable pageable) {
+		return repository.findAll(addFilters(params), pageable);
 	}
 
 	public Long countEvents(UUID logId){
@@ -51,7 +50,7 @@ public class LogService extends BaseService<LogRepository, Log, UUID> {
 	}
 
 	@Override
-	public List<Log> filteredList() {
-		return repository.findAllNotArchived();
+	public Page<Log> filteredList(Pageable pageable) {
+		return repository.findAllNotArchived(pageable);
 	}
 }

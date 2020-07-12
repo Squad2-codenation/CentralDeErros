@@ -2,6 +2,8 @@ package br.com.codenation.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -43,6 +45,10 @@ public abstract class BaseService<R extends JpaRepository<E, ID>, E extends Base
 		return repository.findAll(sort);
 	}
 
+	public Page<E> findAll(Pageable pageable) {
+		return repository.findAll(pageable);
+	}
+
 	public List<E> findAllById(Iterable<ID> ids) {
 		return repository.findAllById(ids);
 	}
@@ -67,8 +73,8 @@ public abstract class BaseService<R extends JpaRepository<E, ID>, E extends Base
 		repository.deleteAllInBatch();
 	}
 
-	public List<E> filteredList() {
-		return repository.findAll();
+	public Page<E> filteredList(Pageable pageable) {
+		return repository.findAll(pageable);
 	}
 
 }

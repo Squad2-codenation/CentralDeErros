@@ -1,17 +1,16 @@
 package br.com.codenation.controllers;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.codenation.entities.interfaces.BaseEntity;
 import br.com.codenation.mappers.interfaces.EntityMapper;
@@ -28,15 +27,23 @@ public abstract class BaseController<S extends BaseService<R, E, ID>, M extends 
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	@ApiOperation(value = "List all entities")
-	public List<D> listAll() {
-		return service.findAll().stream().map(mapper::toDTO).collect(Collectors.toList());
+	public Page<D> listAll(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+						   @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+						   @RequestParam(value = "orderBy", required = false, defaultValue = "id") String orderBy,
+						   @RequestParam(value = "direction", required = false, defaultValue = "asc") String direction) {
+		PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.fromString(direction), orderBy);
+		return service.findAll(pageRequest).map(e -> mapper.toDTO(e));
 	}
 
 	@GetMapping("/filteredList")
 	@ResponseStatus(HttpStatus.OK)
 	@ApiOperation(value = "List all entities based on the entity filter")
-	public List<D> filteredList() {
-		return service.filteredList().stream().map(mapper::toDTO).collect(Collectors.toList());
+	public Page<D> filteredList(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+								@RequestParam(value = "size", required = false, defaultValue = "5") int size,
+								@RequestParam(value = "orderBy", required = false, defaultValue = "id") String orderBy,
+								@RequestParam(value = "direction", required = false, defaultValue = "asc") String direction) {
+		PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.fromString(direction), orderBy);
+		return service.filteredList(pageRequest).map(e -> mapper.toDTO(e));
 	}
 
 	@GetMapping("/{id}")

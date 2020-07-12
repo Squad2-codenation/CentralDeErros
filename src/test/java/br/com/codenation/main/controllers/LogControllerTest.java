@@ -58,15 +58,15 @@ public class LogControllerTest {
 		Log log2 = createSecondLog();
 
 		ResultActions perform = mvc.perform(get("/log").contentType(MediaType.APPLICATION_JSON_VALUE))
-				.andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(2)));
+				.andExpect(status().isOk()).andExpect(jsonPath("$.content", hasSize(2)));
 		
-		perform.andExpect(jsonPath("$[0].id", is(log1.getId().toString())));
-		perform.andExpect(jsonPath("$[0].title", is(log1.getTitle())));
-		perform.andExpect(jsonPath("$[0].details", is(log1.getDetails())));
+		perform.andExpect(jsonPath("$.content[0].id", is(log2.getId().toString())));
+		perform.andExpect(jsonPath("$.content[0].title", is(log2.getTitle())));
+		perform.andExpect(jsonPath("$.content[0].details", is(log2.getDetails())));
 
-		perform.andExpect(jsonPath("$[1].id", is(log2.getId().toString())));
-		perform.andExpect(jsonPath("$[1].title", is(log2.getTitle())));
-		perform.andExpect(jsonPath("$[1].details", is(log2.getDetails())));
+		perform.andExpect(jsonPath("$.content[1].id", is(log1.getId().toString())));
+		perform.andExpect(jsonPath("$.content[1].title", is(log1.getTitle())));
+		perform.andExpect(jsonPath("$.content[1].details", is(log1.getDetails())));
 	}
 	
 	@Test 
@@ -75,7 +75,7 @@ public class LogControllerTest {
 		mvc.perform(get("/log")
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$", hasSize(0)));
+				.andExpect(jsonPath("$.content", hasSize(0)));
 	}
 	
 	@Test
@@ -178,7 +178,7 @@ public class LogControllerTest {
 		
 		ResultActions result = mvc.perform(get("/log/filter?level=DEBUG")
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
-				.andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(3)));
+				.andExpect(status().isOk()).andExpect(jsonPath("$.content", hasSize(3)));
 	}
 	
 	private String createLogJson(Application application, User user) {
