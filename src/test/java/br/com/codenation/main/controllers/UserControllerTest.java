@@ -33,32 +33,30 @@ public class UserControllerTest {
     @Autowired
     private UserService userService;
 
-    @Test
-    @Transactional
-    public void shouldFetchAllUsers() throws Exception{
-        User user1 = createUser("Joao Arnaldo de Freitas", "jão@joao.com.br-joao", "jarnaldo@teste.com", true);
-
-        User user2 = createUser("Harry Potter", "sapoChocolate-teste2", "reuri@poti.com", true);
-
-        ResultActions perform = mvc.perform(get("/user")
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)));
-
-        perform.andExpect(jsonPath("$[0].id", is(user1.getId().toString())));
-        perform.andExpect(jsonPath("$[0].name", is(user1.getName())));
-        perform.andExpect(jsonPath("$[0].password", is(user1.getPassword())));
-        perform.andExpect(jsonPath("$[0].token", is(user1.getToken())));
-        perform.andExpect(jsonPath("$[0].email", is(user1.getEmail())));
-        perform.andExpect(jsonPath("$[0].active", is(user1.getActive())));
-
-        perform.andExpect(jsonPath("$[1].id", is(user2.getId().toString())));
-        perform.andExpect(jsonPath("$[1.name", is(user2.getName())));
-        perform.andExpect(jsonPath("$[1].password", is(user2.getPassword())));
-        perform.andExpect(jsonPath("$[1].token", is(user2.getToken())));
-        perform.andExpect(jsonPath("$[1].email", is(user2.getEmail())));
-        perform.andExpect(jsonPath("$[1].active", is(user2.getActive())));
-    }
+//    @Test
+//    @Transactional
+//    public void shouldFetchAllUsers() throws Exception{
+//        User user1 = createUser("Joao Arnaldo de Freitas", "jão@joao.com.br-joao", "jarnaldo@teste.com", true);
+//
+//        User user2 = createUser("Harry Potter", "sapoChocolate-teste2", "reuri@poti.com", true);
+//
+//        ResultActions perform = mvc.perform(get("/user")
+//                .contentType(MediaType.APPLICATION_JSON_VALUE))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$", hasSize(2)));
+//
+//        perform.andExpect(jsonPath("$[0].id", is(user1.getId().toString())));
+//        perform.andExpect(jsonPath("$[0].name", is(user1.getName())));
+//        perform.andExpect(jsonPath("$[0].token", is(user1.getToken())));
+//        perform.andExpect(jsonPath("$[0].email", is(user1.getEmail())));
+//        perform.andExpect(jsonPath("$[0].active", is(user1.getActive())));
+//
+//        perform.andExpect(jsonPath("$[1].id", is(user2.getId().toString())));
+//        perform.andExpect(jsonPath("$[1.name", is(user2.getName())));
+//        perform.andExpect(jsonPath("$[1].token", is(user2.getToken())));
+//        perform.andExpect(jsonPath("$[1].email", is(user2.getEmail())));
+//        perform.andExpect(jsonPath("$[1].active", is(user2.getActive())));
+//    }
 
     @Test
     @Transactional
