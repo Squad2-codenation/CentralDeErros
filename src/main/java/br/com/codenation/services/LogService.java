@@ -30,4 +30,9 @@ public class LogService extends BaseService<LogRepository, Log, UUID> {
 	public Long countEvents(UUID logId){
 		return repository.countEvents(logId);
 	}
+
+	@Override
+	public List<Log> filteredList() {
+		return repository.findAllNotArchived();
+	}
 }

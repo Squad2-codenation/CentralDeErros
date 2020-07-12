@@ -1,5 +1,6 @@
 package br.com.codenation.repositories;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,4 +24,6 @@ public interface LogRepository extends JpaRepository<Log, UUID>, JpaSpecificatio
             "WHERE t.id = :logId ")
     Long countEvents(@Param("logId") UUID logId);
 
+    @Query("SELECT l FROM log l WHERE l.archived = false")
+    List<Log> findAllNotArchived();
 }

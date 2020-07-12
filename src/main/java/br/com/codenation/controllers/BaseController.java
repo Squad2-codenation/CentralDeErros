@@ -32,6 +32,13 @@ public abstract class BaseController<S extends BaseService<R, E, ID>, M extends 
 		return service.findAll().stream().map(mapper::toDTO).collect(Collectors.toList());
 	}
 
+	@GetMapping("/filteredList")
+	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation(value = "Lista todas os models")
+	public List<D> filteredList() {
+		return service.filteredList().stream().map(mapper::toDTO).collect(Collectors.toList());
+	}
+
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	@ApiOperation(value = "Busca um registro no banco pelo id")
