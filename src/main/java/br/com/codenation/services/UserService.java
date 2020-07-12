@@ -20,9 +20,9 @@ public class UserService extends BaseService<UserRepository, User, UUID> {
 		super(repository);
 	}
 
-	public void delete(UUID id) {
+	public void updateActive(UUID id, Boolean value) {
 		repository.findById(id).ifPresent(user -> {
-			user.setActive(false);
+			user.setActive(value);
 			save(user);
 		});
 	}
