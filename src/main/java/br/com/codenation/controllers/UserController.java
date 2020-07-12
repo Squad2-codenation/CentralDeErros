@@ -38,7 +38,7 @@ public class UserController extends BaseController<UserService, UserMapper, User
         service.updateActive(id, false);
     }
 
-    @PostMapping("/{id}/deactivate")
+    @PostMapping("/{id}/activate")
     public void activate(@PathVariable UUID id) {
         service.updateActive(id, true);
     }
