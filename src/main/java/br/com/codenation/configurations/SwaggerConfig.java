@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 
 import io.swagger.models.auth.In;
+import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.*;
@@ -29,12 +30,11 @@ public class SwaggerConfig {
 	public static final String TITLE = "Central de Erros - Codenation";
 	public static final String DESCRIPTION = "Serviços para cadastrar logs de erro.";
 	public static final String VERSION = "1.0";
-	public static final String TERMS = "Termos e Serviços 2020";
-	public static final String URL = "COLOCAR O LINK DA APLICAÇÃO EM PRODUÇÃO";
-	public static final String LICENSE = "DigiCert SHA2 Extended Validation Server CA";
-	public static final String EMAIL = "gusttavo.funchal@gmail.com";
-	public static final String LICENSE_URL = "https://www.digicert.com/";
-	public static final String CONTACT_NAME = "Gusttavo H. Funchal Pimenta";
+	public static final String LICENSE = "Apache 2.0";
+	public static final String LICENSE_URL = "https://www.apache.org/licenses/LICENSE-2.0";
+	public static final String URL = "https://github.com/Squad2-codenation/CentralDeErros";
+	public static final String CONTACT_NAME = "Squad 2 - Codenation";
+
 	public static final String BASE_PACKAGE = "br.com.codenation.controllers";
 
 	@Value("${security.oauth2.client.client-id}")
@@ -52,7 +52,8 @@ public class SwaggerConfig {
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage(BASE_PACKAGE)).paths(PathSelectors.any())
+				.apis(RequestHandlerSelectors.basePackage(BASE_PACKAGE))
+				.paths(PathSelectors.any())
 				.build().apiInfo(metaInfo())
 				.securitySchemes(Collections.singletonList(securitySchema()))
 				.securityContexts(Arrays.asList(securityContext()));
@@ -92,8 +93,13 @@ public class SwaggerConfig {
 
 	@SuppressWarnings("rawtypes")
 	private ApiInfo metaInfo() {
-		return new ApiInfo(TITLE, DESCRIPTION, VERSION, TERMS, new Contact(CONTACT_NAME, URL, EMAIL), LICENSE,
-				LICENSE_URL, new ArrayList<VendorExtension>());
+		return new ApiInfoBuilder().title(TITLE)
+				.description(DESCRIPTION)
+				.version(VERSION)
+				.contact(new Contact(CONTACT_NAME, URL, ""))
+				.license(LICENSE)
+				.licenseUrl(LICENSE_URL)
+				.build();
 	}
 
 }
