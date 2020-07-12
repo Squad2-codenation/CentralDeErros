@@ -1,7 +1,10 @@
 package br.com.codenation.repositories;
 
+import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
@@ -33,6 +36,8 @@ public interface LogRepository extends JpaRepository<Log, UUID>, QuerydslPredica
 	default void customize(QuerydslBindings bindings, QLog log) {
 		bindings.bind(String.class)	
         .first((SingleValueBinding<StringPath, String>) StringExpression::containsIgnoreCase);
-		
 	}
+  
+    @Query("SELECT l FROM log l WHERE l.archived = false")
+    Page<Log> findAllNotArchived(Pageable pageable);
 }

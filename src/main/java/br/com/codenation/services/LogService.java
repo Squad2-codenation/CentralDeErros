@@ -40,4 +40,28 @@ public class LogService extends BaseService<LogRepository, Log, UUID> {
 	public Long countEvents(UUID logId){
 		return repository.countEvents(logId);
 	}
+
+	public Log updateArchive(UUID id, Boolean value){
+		Log log = findById(id);
+		if(log != null){
+			log.setArchived(value);
+			log = save(log);
+		}
+
+		return log;
+	}
+
+	public List<Log> updateArchiveInBatch(List<UUID> ids, Boolean value){
+		List<Log> logsToArchive = findAllById(ids);
+		for(Log log : logsToArchive){
+			log.setArchived(value);
+		}
+
+		return repository.saveAll(logsToArchive);
+	}
+
+	@Override
+	public Page<Log> filteredList(Pageable pageable) {
+		return repository.findAllNotArchived(pageable);
+	}
 }

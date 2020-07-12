@@ -1,9 +1,11 @@
 package br.com.codenation.configurations;
 
+import br.com.codenation.exceptions.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -23,14 +25,18 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Autowired
-	protected void configure(AuthenticationManagerBuilder auth, UserRepository userRepository) throws Exception {
-		auth.userDetailsService(email -> userRepository.findByEmail(email).map(LoggedUser::new).orElse(null))
-				.passwordEncoder(passwordEncoder());
+	protected void configure(AuthenticationManagerBuilder auth, UserRepository userRepository) {
+		try {
+			auth.userDetailsService(email -> userRepository.findByEmail(email).map(LoggedUser::new).orElse(null))
+					.passwordEncoder(passwordEncoder());
+		} catch (Exception e) {
+			throw new BadRequestException("Error during user authentication");
+		}
 	}
 
 	@Override
 	public void configure(WebSecurity web) {
-		web.ignoring().antMatchers(HttpMethod.GET, //
+		web.ignoring().antMatchers(HttpMethod.GET,
 				"/", //
 				"/webjars/**", //
 				"/*.html", //
@@ -44,7 +50,7 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
 				"/webjars/**", //
 				"/**/*.css", //
 				"/**/*.js"//
-		).antMatchers(HttpMethod.POST, "/user");
+		).antMatchers(HttpMethod.POST, "/user", "/log", "/application");
 	}
 
 }
