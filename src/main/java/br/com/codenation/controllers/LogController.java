@@ -39,16 +39,19 @@ public class LogController extends BaseController<LogService, LogMapper, LogRepo
 	}
 
 	@PostMapping("/{id}/archive")
+	@ApiOperation(value = "Archive the specified log")
 	public LogDTO archive(@PathVariable UUID id) {
 		return mapper.toDTO(service.updateArchive(id,true));
 	}
 
 	@PostMapping("/{id}/unarchive")
+	@ApiOperation(value = "Unarchive the specified log")
 	public LogDTO unarchive(@PathVariable UUID id) {
 		return mapper.toDTO(service.updateArchive(id, false));
 	}
 
 	@PostMapping("/archive")
+	@ApiOperation(value = "Archive logs in batch")
 	public List<LogDTO> archiveInBatch(@RequestBody List<UUID> ids) {
 		return service.updateArchiveInBatch(ids, true).stream()
 				.map(mapper::toDTO)
@@ -56,6 +59,7 @@ public class LogController extends BaseController<LogService, LogMapper, LogRepo
 	}
 
 	@PostMapping("/unarchive")
+	@ApiOperation(value = "Unarchive logs in batch")
 	public List<LogDTO> unarchiveInBatch(@RequestBody List<UUID> ids) {
 		return service.updateArchiveInBatch(ids, true).stream()
 				.map(mapper::toDTO)

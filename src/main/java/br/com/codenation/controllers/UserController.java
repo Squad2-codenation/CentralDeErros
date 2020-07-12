@@ -34,11 +34,13 @@ public class UserController extends BaseController<UserService, UserMapper, User
 	}
 
     @PostMapping("/{id}/deactivate")
+    @ApiOperation(value = "Deactivate the specified user")
     public void deactivate(@PathVariable UUID id) {
         service.updateActive(id, false);
     }
 
     @PostMapping("/{id}/activate")
+    @ApiOperation(value = "Activate the specified user")
     public void activate(@PathVariable UUID id) {
         service.updateActive(id, true);
     }

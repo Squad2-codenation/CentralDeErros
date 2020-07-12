@@ -27,42 +27,42 @@ public abstract class BaseController<S extends BaseService<R, E, ID>, M extends 
 
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	@ApiOperation(value = "Lista todas os models")
+	@ApiOperation(value = "List all entities")
 	public List<D> listAll() {
 		return service.findAll().stream().map(mapper::toDTO).collect(Collectors.toList());
 	}
 
 	@GetMapping("/filteredList")
 	@ResponseStatus(HttpStatus.OK)
-	@ApiOperation(value = "Lista todas os models")
+	@ApiOperation(value = "List all entities based on the entity filter")
 	public List<D> filteredList() {
 		return service.filteredList().stream().map(mapper::toDTO).collect(Collectors.toList());
 	}
 
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	@ApiOperation(value = "Busca um registro no banco pelo id")
+	@ApiOperation(value = "Get the entity by id")
 	public D getById(@PathVariable ID id) {
 		return mapper.toDTO(service.findById(id));
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	@ApiOperation(value = "Adiciona um novo registro no banco")
+	@ApiOperation(value = "Create a new record")
 	public D create(@RequestBody D dto) {
 		return mapper.toDTO(service.save(mapper.toEntity(dto)));
 	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	@ApiOperation(value = "Deleta um registro no banco pelo id")
+	@ApiOperation(value = "Delete a record by id")
 	public void delete(@PathVariable ID id) {
 		service.delete(id);
 	}
 
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	@ApiOperation(value = "Atualiza um registro no banco pelo id")
+	@ApiOperation(value = "Update a record in the database")
 	public D update(@PathVariable ID id, @RequestBody D dto) {
 		E model = mapper.toEntity(dto);
 		model.setId(id);
