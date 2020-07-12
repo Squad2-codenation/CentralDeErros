@@ -53,15 +53,15 @@ public class ApplicationControllerTest {
 		Application application2 = createApplication("189.90.2.100");
 
 		ResultActions perform = mvc.perform(get("/application").contentType(MediaType.APPLICATION_JSON_VALUE))
-				.andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(2)));
+				.andExpect(status().isOk()).andExpect(jsonPath("$.content", hasSize(2)));
 
-		perform.andExpect(jsonPath("$[0].id", is(application1.getId().toString())));
-		perform.andExpect(jsonPath("$[0].name", is(application1.getName())));
-		perform.andExpect(jsonPath("$[0].token", is(application1.getToken())));
+		perform.andExpect(jsonPath("$.content[0].id", is(application1.getId().toString())));
+		perform.andExpect(jsonPath("$.content[0].name", is(application1.getName())));
+		perform.andExpect(jsonPath("$.content[0].token", is(application1.getToken())));
 
-		perform.andExpect(jsonPath("$[1].id", is(application2.getId().toString())));
-		perform.andExpect(jsonPath("$[1].name", is(application2.getName())));
-		perform.andExpect(jsonPath("$[1].token", is(application2.getToken())));
+		perform.andExpect(jsonPath("$.content[1].id", is(application2.getId().toString())));
+		perform.andExpect(jsonPath("$.content[1].name", is(application2.getName())));
+		perform.andExpect(jsonPath("$.content[1].token", is(application2.getToken())));
 	}
 	
 	@Test 
@@ -70,7 +70,7 @@ public class ApplicationControllerTest {
 		mvc.perform(get("/application")
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$", hasSize(0)));
+				.andExpect(jsonPath("$.content", hasSize(0)));
 	}
 	
 	@Test
