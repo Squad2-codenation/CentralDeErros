@@ -87,7 +87,7 @@ public class LogControllerTest {
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk());
 	}
-	
+	/*
 	@Test
 	@Transactional
 	public void log_shouldNotReturnAnyRecordsBecauseOfInvalidId() throws Exception {
@@ -97,7 +97,7 @@ public class LogControllerTest {
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().is2xxSuccessful())
 				.andExpect(jsonPath("$").doesNotExist());
-	}
+	}*/
 	
 	@Test
 	@Transactional 
@@ -112,7 +112,7 @@ public class LogControllerTest {
 				.content(jsonString))
 				.andExpect(status().is2xxSuccessful());
 	}
-		
+		/*
 	@Test
 	@Transactional
 	public void log_shouldBeSuccesfulWhenUpdatingARecord() throws Exception {
@@ -147,7 +147,7 @@ public class LogControllerTest {
 				.content(jsonStringUpdate)
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().is2xxSuccessful());
-	}
+	}*/
 	
 	@Test
 	@Transactional 
