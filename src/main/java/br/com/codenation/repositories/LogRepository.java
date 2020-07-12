@@ -3,6 +3,8 @@ package br.com.codenation.repositories;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -25,5 +27,5 @@ public interface LogRepository extends JpaRepository<Log, UUID>, JpaSpecificatio
     Long countEvents(@Param("logId") UUID logId);
 
     @Query("SELECT l FROM log l WHERE l.archived = false")
-    List<Log> findAllNotArchived();
+    Page<Log> findAllNotArchived(Pageable pageable);
 }

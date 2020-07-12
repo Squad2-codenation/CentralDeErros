@@ -20,6 +20,7 @@ public interface LogMapper extends EntityMapper<Log, LogDTO> {
 	@Mapping(source = "user.name", target = "userName")
 	@Mapping(source = "createdAt", target = "createdAt", dateFormat = "yyyy-MM-dd HH:mm")
 	@Mapping(source = "updatedAt", target = "updatedAt", dateFormat = "yyyy-MM-dd HH:mm")
+	@Mapping(source = "archived", target = "archived", defaultExpression = "java(false)")
 	LogDTO toDTO(Log source);
 
 	@Mapping(source = "applicationId", target = "application.id")
