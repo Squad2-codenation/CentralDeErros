@@ -3,8 +3,8 @@ package br.com.codenation.exceptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.codenation.dtos.ErrorDTO;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
@@ -29,10 +29,23 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BadRequestException.class)
-    public ResponseError thrownBadRequestException(BadRequestException e, WebRequest webRequest) {
+    public ResponseError throwBadRequestException(BadRequestException e, WebRequest webRequest) {
         return ResponseError.builder()
                 .message(e.getMessage())
                 .detail(e.getDetail())
+                .timesTamp(System.currentTimeMillis())
+                .path(webRequest.getDescription(true))
+                .build();
+    }
+
+    //Handler generico para ver possiveis excecoes --- EXCLUIR
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(Exception.class)
+    public ResponseError throwPSQLException(Exception e, WebRequest webRequest) {
+        return ResponseError.builder()
+                .message(e.getMessage())
+                .detail(e.getCause().toString())
                 .timesTamp(System.currentTimeMillis())
                 .path(webRequest.getDescription(true))
                 .build();
@@ -43,26 +56,17 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
     		HttpHeaders headers, HttpStatus status, WebRequest request) {
-    	List<Error> errors = createErrorList(ex.getBindingResult());
+    	List<ErrorDTO> errors = createErrorList(ex.getBindingResult());
     	return handleExceptionInternal(ex, errors, headers, status, request);
     }
     
-    private List<Error> createErrorList(BindingResult bindingResult) {
-    	List<Error> errors = new ArrayList<>();
+    private List<ErrorDTO> createErrorList(BindingResult bindingResult) {
+    	List<ErrorDTO> errors = new ArrayList<>();
     	for (FieldError fieldError : bindingResult.getFieldErrors()) {
     		String message = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
     		String detail = fieldError.toString();
-    		errors.add(new Error(message, detail));
+    		errors.add(new ErrorDTO(message, detail));
     	}   	
     	return errors;
     }
-
-    @Getter
-	@AllArgsConstructor
-    public static class Error {
-    	private final String message;
-    	private final String detail;
-    }
-    
-
 }

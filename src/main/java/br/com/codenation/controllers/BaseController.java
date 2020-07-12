@@ -19,6 +19,8 @@ import br.com.codenation.services.BaseService;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 
+import javax.validation.Valid;
+
 @AllArgsConstructor
 public abstract class BaseController<S extends BaseService<R, E, ID>, M extends EntityMapper<E, D>, R extends JpaRepository<E, ID>, E extends BaseEntity<ID>, D, ID> {
 
@@ -42,7 +44,7 @@ public abstract class BaseController<S extends BaseService<R, E, ID>, M extends 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	@ApiOperation(value = "Adiciona um novo registro no banco")
-	public D create(@RequestBody D dto) {
+	public D create(@Valid @RequestBody D dto) {
 		return mapper.toDTO(service.save(mapper.toEntity(dto)));
 	}
 

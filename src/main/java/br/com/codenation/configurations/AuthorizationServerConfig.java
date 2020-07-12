@@ -30,7 +30,7 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) {
-		web.ignoring().antMatchers(HttpMethod.GET, //
+		web.ignoring().antMatchers(HttpMethod.GET,  "/log",
 				"/", //
 				"/webjars/**", //
 				"/*.html", //
@@ -44,7 +44,7 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
 				"/webjars/**", //
 				"/**/*.css", //
 				"/**/*.js"//
-		).antMatchers(HttpMethod.POST, "/user");
+		).antMatchers(HttpMethod.POST, "/user", "/log", "/application");
 	}
 
 }
