@@ -96,7 +96,7 @@ https://centralerros-api.herokuapp.com/swagger-ui.html
   </thead>
   <tbody>
     <tr> 
-      <td>teste</td>
+      <td>teste@teste.com.br</td>
       <td>123</td>
     </tr>
   </tbody>  
@@ -107,7 +107,10 @@ https://centralerros-api.herokuapp.com/swagger-ui.html
 * Escolha sua IDE de preferência
 
 ## Testes
-* Para rodar os testes utilize o comando <code>mvn test</code>
+* Para rodar os testes utilize o comando na pasta raíz do projeto <code>mvn test</code>
+
+#### Cobertura dos Testes
+<img width="600" height="300" src="https://github.com/Squad2-codenation/CentralDeErros/blob/master/testes.png"/>
 
 ## Implementações futuras
 * Implementação do front-end
