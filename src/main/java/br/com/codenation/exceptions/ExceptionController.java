@@ -40,8 +40,8 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
 
     //Handler generico para ver possiveis excecoes --- EXCLUIR
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseError throwPSQLException(Exception e, WebRequest webRequest) {
         return ResponseError.builder()
                 .message(e.getMessage())
