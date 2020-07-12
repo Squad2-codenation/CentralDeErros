@@ -38,6 +38,7 @@ public class User extends AbstractAuditingEntity implements BaseEntity<UUID> {
 
 	@Email
 	@NotNull
+	@Column(unique = true)
 	private String email;
 
 	@NotNull

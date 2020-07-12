@@ -18,6 +18,8 @@ import br.com.codenation.services.BaseService;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 
+import javax.validation.Valid;
+
 @AllArgsConstructor
 public abstract class BaseController<S extends BaseService<R, E, ID>, M extends EntityMapper<E, D>, R extends JpaRepository<E, ID>, E extends BaseEntity<ID>, D, ID> {
 
@@ -49,14 +51,14 @@ public abstract class BaseController<S extends BaseService<R, E, ID>, M extends 
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	@ApiOperation(value = "Get the entity by id")
-	public D getById(@PathVariable ID id) {
+	public D getById(@Valid @PathVariable ID id) {
 		return mapper.toDTO(service.findById(id));
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	@ApiOperation(value = "Create a new record")
-	public D create(@RequestBody D dto) {
+	public D create(@Valid @RequestBody D dto) {
 		return mapper.toDTO(service.save(mapper.toEntity(dto)));
 	}
 

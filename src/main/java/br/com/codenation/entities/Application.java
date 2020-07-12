@@ -2,6 +2,7 @@ package br.com.codenation.entities;
 
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -28,6 +29,7 @@ public class Application extends AbstractAuditingEntity implements BaseEntity<UU
     private UUID id;
 
     @NotNull
+    @Column(unique = true)
     private String name;
 
     private String token;
