@@ -29,7 +29,6 @@ public class ErrorSpecification {
 			public Predicate toPredicate(Root<Log> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				List<Predicate> predicates = new ArrayList<Predicate>();
 				
-
 				Set<Entry<Class<?>, Class<?>>> set = params.entrySet();
 				Iterator it = set.iterator();
 				

@@ -62,7 +62,7 @@ public class UserControllerTest {
         perform.andExpect(jsonPath("$[1].email", is(user2.getEmail())));
         perform.andExpect(jsonPath("$[1].active", is(user2.getActive())));
     }
-
+  
     @Test
     @Transactional
     public void user_shouldNotReturnAny() throws Exception{
