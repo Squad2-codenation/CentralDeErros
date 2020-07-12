@@ -10,8 +10,8 @@ import br.com.codenation.entities.User;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@AllArgsConstructor
 @Getter
+@AllArgsConstructor
 public class LoggedUser implements UserDetails {
 
     private User user;
