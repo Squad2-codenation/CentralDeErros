@@ -1,5 +1,6 @@
 package br.com.codenation.entities;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,7 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "users")
-public class User extends AbstractAuditingEntity implements BaseEntity<UUID> {
+public class User extends AbstractAuditingEntity implements BaseEntity<UUID>, Serializable {
 
 	@Id
 	@GeneratedValue(generator = "uuid2")

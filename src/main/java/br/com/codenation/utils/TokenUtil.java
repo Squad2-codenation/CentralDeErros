@@ -4,6 +4,10 @@ import java.util.Base64;
 
 public class TokenUtil {
 
+	private TokenUtil() {
+
+	}
+
 	public static String tokenGenerator(String... params) {
 		
 		if (params == null) {
