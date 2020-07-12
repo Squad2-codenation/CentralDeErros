@@ -2,8 +2,10 @@ package br.com.codenation.configurations;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -11,15 +13,13 @@ import org.springframework.http.HttpHeaders;
 import io.swagger.models.auth.In;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.ApiKey;
-import springfox.documentation.service.AuthorizationScope;
-import springfox.documentation.service.Contact;
-import springfox.documentation.service.SecurityReference;
-import springfox.documentation.service.VendorExtension;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.ApiKeyVehicle;
+import springfox.documentation.swagger.web.SecurityConfiguration;
+import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
@@ -35,25 +35,59 @@ public class SwaggerConfig {
 	public static final String EMAIL = "gusttavo.funchal@gmail.com";
 	public static final String LICENSE_URL = "https://www.digicert.com/";
 	public static final String CONTACT_NAME = "Gusttavo H. Funchal Pimenta";
+	public static final String BASE_PACKAGE = "br.com.codenation.controllers";
+
+	@Value("${security.oauth2.client.client-id}")
+	private String clientId;
+
+	@Value("${security.oauth2.client.client-secret}")
+	private String clientSecret;
+
+	@Value("${security.oauth2.client.auth-link}")
+	private String authLink;
+
+	@Value("${security.oauth2.client.scope}")
+	private String scope;
 
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("br.com.codenation.controllers")).paths(PathSelectors.any())
+				.apis(RequestHandlerSelectors.basePackage(BASE_PACKAGE)).paths(PathSelectors.any())
 				.build().apiInfo(metaInfo())
-				.securitySchemes(Arrays.asList(new ApiKey("Token Access", HttpHeaders.AUTHORIZATION, In.HEADER.name())))
+				.securitySchemes(Collections.singletonList(securitySchema()))
 				.securityContexts(Arrays.asList(securityContext()));
 	}
 
-	private SecurityContext securityContext() {
-		return SecurityContext.builder().securityReferences(defaultAuth()).forPaths(PathSelectors.any()).build();
+	private OAuth securitySchema() {
+		List<AuthorizationScope> authorizationScopeList = new ArrayList<>();
+		authorizationScopeList.add(new AuthorizationScope(scope, "all"));
+
+		List<GrantType> grantTypes = new ArrayList<>();
+		grantTypes.add(new ResourceOwnerPasswordCredentialsGrant(authLink));
+
+		return new OAuth("Oauth2 Password", authorizationScopeList, grantTypes);
 	}
 
-	List<SecurityReference> defaultAuth() {
-		AuthorizationScope authorizationScope = new AuthorizationScope("ADMIN", "accessEverything");
-		AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-		authorizationScopes[0] = authorizationScope;
-		return Arrays.asList(new SecurityReference("Token Access", authorizationScopes));
+	@Bean
+	public SecurityConfiguration securityInfo() {
+		return SecurityConfigurationBuilder.builder()
+				.clientId(clientId)
+				.clientSecret(clientSecret)
+				.appName(TITLE)
+				.build();
+	}
+
+	private SecurityContext securityContext() {
+		return SecurityContext.builder()
+				.securityReferences(defaultAuth())
+				.forPaths(PathSelectors.any())
+				.build();
+	}
+
+	private List<SecurityReference> defaultAuth() {
+		final AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+		authorizationScopes[0] = new AuthorizationScope(scope, "all");
+		return Collections.singletonList(new SecurityReference("Oauth2 Password", authorizationScopes));
 	}
 
 	@SuppressWarnings("rawtypes")
