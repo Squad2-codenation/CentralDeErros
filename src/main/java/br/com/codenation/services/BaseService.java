@@ -67,4 +67,8 @@ public abstract class BaseService<R extends JpaRepository<E, ID>, E extends Base
 		repository.deleteAllInBatch();
 	}
 
+	public List<E> filteredList() {
+		return repository.findAll();
+	}
+
 }

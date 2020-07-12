@@ -10,11 +10,7 @@ import io.swagger.annotations.ApiOperation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -36,4 +32,16 @@ public class UserController extends BaseController<UserService, UserMapper, User
 	public UserDTO create(@Valid @RequestBody UserDTO dto) {
 		return mapper.toDTO(service.save(mapper.toEntity(dto)));
 	}
+
+    @PostMapping("/{id}/deactivate")
+    @ApiOperation(value = "Deactivate the specified user")
+    public void deactivate(@PathVariable UUID id) {
+        service.updateActive(id, false);
+    }
+
+    @PostMapping("/{id}/activate")
+    @ApiOperation(value = "Activate the specified user")
+    public void activate(@PathVariable UUID id) {
+        service.updateActive(id, true);
+    }
 }
