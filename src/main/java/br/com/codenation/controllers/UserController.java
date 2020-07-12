@@ -25,13 +25,6 @@ public class UserController extends BaseController<UserService, UserMapper, User
     public UserController(UserService service, UserMapper mapper) {
         super(service, mapper);
     }
-    
-    @PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	@ApiOperation(value = "Adiciona um novo registro no banco")
-	public UserDTO create(@Valid @RequestBody UserDTO dto) {
-		return mapper.toDTO(service.save(mapper.toEntity(dto)));
-	}
 
     @PostMapping("/{id}/deactivate")
     @ApiOperation(value = "Deactivate the specified user")

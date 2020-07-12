@@ -51,7 +51,7 @@ public abstract class BaseController<S extends BaseService<R, E, ID>, M extends 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	@ApiOperation(value = "Create a new record")
-	public D create(@RequestBody D dto) {
+	public D create(@Valid @RequestBody D dto) {
 		return mapper.toDTO(service.save(mapper.toEntity(dto)));
 	}
 
