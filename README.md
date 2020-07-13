@@ -31,7 +31,7 @@
   <a href="https://github.com/features/actions">
     <img src="https://img.shields.io/static/v1?label=github%20actions&message=CI/CD&color=blue&style=for-the-badge&logo=GITHUB"/>
   </a>
-    <img src="http://img.shields.io/static/v1?label=STATUS&message=desenvolvimento&color=blue&style=for-the-badge"/>
+    <img src="http://img.shields.io/static/v1?label=STATUS&message=finalizado&color=blue&style=for-the-badge"/>
 </p>
 
 ## Tópicos
@@ -69,22 +69,23 @@
 ## Tarefas realizadas
 <p>
   <img src="https://img.shields.io/badge/DEVOPS-5%20TAREFAS-blue"/> 
-  <img src="https://img.shields.io/badge/REALIZADAS-0%25-red"/>
+  <img src="https://img.shields.io/badge/REALIZADAS-5%25-green"/>
 </p>
 <p>
   <img src="https://img.shields.io/badge/BACKEND-34%20TAREFAS-blue"/> 
-  <img src="https://img.shields.io/badge/REALIZADAS-73,53%25-yellow"/>
+  <img src="https://img.shields.io/badge/REALIZADAS-100%25-green"/>
 </p>
 <p>
-  <img src="https://img.shields.io/badge/DOCUMENTACAO-7%20TAREFAS-blue"/> 
-  <img src="https://img.shields.io/badge/REALIZADAS-42,86%25-yellow"/>
+  <img src="https://img.shields.io/badge/DOCUMENTACAO-6%20TAREFAS-blue"/> 
+  <img src="https://img.shields.io/badge/REALIZADAS-83,33%25-green"/>
 </p>
 <p>
   <img src="https://img.shields.io/badge/BANCO%20DE%20DADOS-5%20TAREFAS-blue"/> 
-  <img src="https://img.shields.io/badge/REALIZADAS-80%25-green"/>
+  <img src="https://img.shields.io/badge/REALIZADAS-100%25-green"/>
 </p>
 
 ## Verificação Sonar
+<img src="https://github.com/Squad2-codenation/CentralDeErros/blob/master/verificacao_sonar.png"/>
 
 ## Link Swagger 
 https://centralerros-api.herokuapp.com/swagger-ui.html
@@ -104,14 +105,16 @@ https://centralerros-api.herokuapp.com/swagger-ui.html
 
 ## Aplicação
 * Para rodar a aplicação utilize o comando <code>git clone https://github.com/Squad2-codenation/CentralDeErros.git</code>
+* Rode o comando <code>mvn clean install</code>
 * Escolha sua IDE de preferência
 
 ## Testes
-* Para rodar os testes utilize o comando na pasta raíz do projeto <code>mvn test</code>
+* Para rodar os testes utilize o comando no diretório raíz do projeto <code>mvn test</code>
 
 #### Cobertura dos Testes
 <img width="600" height="300" src="https://github.com/Squad2-codenation/CentralDeErros/blob/master/testes.png"/>
 
 ## Implementações futuras
 * Implementação do front-end
+* Configuração do Sonar para identificar cobertura dos testes
 
