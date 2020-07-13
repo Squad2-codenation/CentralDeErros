@@ -1,5 +1,6 @@
 package br.com.codenation.entities;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -33,7 +34,7 @@ import lombok.NoArgsConstructor;
 		@Index(name = "idx_archived", columnList = "archived"),
 		@Index(name = "idx_level", columnList = "level"),
 		@Index(name = "idx_environment", columnList = "environment")})
-public class Log extends AbstractAuditingEntity implements BaseEntity<UUID> {
+public class Log extends AbstractAuditingEntity implements BaseEntity<UUID>, Serializable {
 
 	@Id
 	@GeneratedValue(generator = "uuid2")

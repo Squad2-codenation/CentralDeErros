@@ -24,9 +24,9 @@ public class LogPredicate {
         		return getLevel(entityPath);
         	case "application":
         		return getApplication(entityPath);
+			default:
+				return null;
         }
-        
-        return null;
 	}
 	
 	private BooleanExpression getEnvironment(PathBuilder<Log> entityPath) {

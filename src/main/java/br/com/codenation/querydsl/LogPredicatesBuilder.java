@@ -26,7 +26,7 @@ public class LogPredicatesBuilder {
 	}
 	
 	public BooleanExpression build() {
-		if (params.size() == 0) {
+		if (params.isEmpty()) {
 			return null;
 		}
 
