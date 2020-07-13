@@ -1,7 +1,7 @@
 package br.com.codenation.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -30,13 +30,16 @@ public class LogController extends BaseController<LogService, LogMapper, LogRepo
 
 	@GetMapping("/filter")
 	@ResponseStatus(HttpStatus.OK)
-	public Page<LogDTO> listFilters(@RequestParam(required = false) Map<Class<?>, Class<?>> params,
-									@RequestParam(value = "page", required = false, defaultValue = "0") int page,
-									@RequestParam(value = "size", required = false, defaultValue = "5") int size,
-									@RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
-									@RequestParam(value = "direction", defaultValue = "asc") String direction) {
+	public Page<LogDTO> listFilters(@RequestParam(value = "search", required = false) String search,
+			@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+			@RequestParam(value = "size", required = false, defaultValue = "5") int size,
+			@RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
+			@RequestParam(value = "direction", defaultValue = "asc") String direction) {
+		
 		PageRequest pageRequest = PageRequest.of(page, size, Direction.fromString(direction), orderBy);
-		return service.findWithFilters(params, pageRequest).map(e -> mapper.toDTO(e));
+
+		
+		return service.findWithFilters(search, pageRequest).map(e -> mapper.toDTO(e));
 	}
 
 	@PostMapping("/{id}/archive")

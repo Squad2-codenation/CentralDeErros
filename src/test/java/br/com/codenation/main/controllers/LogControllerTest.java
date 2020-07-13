@@ -87,7 +87,7 @@ public class LogControllerTest {
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk());
 	}
-	/*
+  
 	@Test
 	@Transactional
 	public void log_shouldNotReturnAnyRecordsBecauseOfInvalidId() throws Exception {
@@ -97,7 +97,7 @@ public class LogControllerTest {
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().is2xxSuccessful())
 				.andExpect(jsonPath("$").doesNotExist());
-	}*/
+	}
 	
 	@Test
 	@Transactional 
@@ -112,18 +112,20 @@ public class LogControllerTest {
 				.content(jsonString))
 				.andExpect(status().is2xxSuccessful());
 	}
-		/*
+  
 	@Test
 	@Transactional
 	public void log_shouldBeSuccesfulWhenUpdatingARecord() throws Exception {
+		Application application = createApplication();
+		User user = createUser();
 		Log log = Log.builder()
 				.id(UUID.randomUUID())
 				.title("acceleration.Service.AddCandidate: <forbidden>")
 				.details("File \"/br/com/codenation/service/CandidateService.java\", line 83, in findAll")
-				.application(createApplication())
+				.application(application)
 				.environment(EnvironmentEnum.DEVELOPMENT)
 				.level(LevelEnum.DEBUG)
-				.user(createUser())
+				.user(user)
 				.archived(false)
 				.build();
 		
@@ -136,18 +138,18 @@ public class LogControllerTest {
 		String jsonStringUpdate = "{\"title\":\"acceleration.Service.AddCandidate: \u003cforbidden\u003e\"," +
 				"\"details\":\"File \\\"/br/com/codenation/service/CandidateService.java\\\", line 83, in findAll\"," +
 				"\"level\":\"WARNING\"," +
-				"\"applicationId\": \"11b6ac13-ad53-4b44-a530-3e8772ebcd51\"," +
-				"\"applicationName\": \"217.0.0.1\"," +
-				"\"archived\": null," +
-				"\"userId\": \"91b6ac13-ad53-4b44-a530-3e8772ebcd51\"," +
-				"\"userName\": \"Jobison\"," +
+				"\"applicationId\": \"" + application.getId() + "\"," +
+				"\"applicationName\": \"" + application.getName() + "\"," +
+				"\"archived\": false," +
+				"\"userId\": \"" + user.getId() + "\"," +
+				"\"userName\": \"" + user.getName() + "\"," +
 				"\"environment\":\"PRODUCTION\"} ";
 		
 		ResultActions resultUpdate = mvc.perform(put("/log/" + log.getId().toString())
 				.content(jsonStringUpdate)
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().is2xxSuccessful());
-	}*/
+	}
 	
 	@Test
 	@Transactional 
@@ -175,8 +177,8 @@ public class LogControllerTest {
 		Log log2 = createSecondLog(); 
 		Log log3 = createFirstLog();
 		Log log4 = createFirstLog();
-		
-		ResultActions result = mvc.perform(get("/log/filter?level=DEBUG")
+	
+		ResultActions result = mvc.perform(get("/log/filter?search=level:DEBUG")
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.content", hasSize(3)));
 	}
@@ -224,7 +226,7 @@ public class LogControllerTest {
 	
 	private Application createApplication() {
 		Application application = Application.builder()
-				.name("127.0.0.1")
+				.name("127.0.0.1" + UUID.randomUUID())
 				.id(UUID.randomUUID())
 				.token(String.valueOf(new Random().nextInt()))
 				.build();
@@ -235,7 +237,7 @@ public class LogControllerTest {
 	private User createUser() {
 		User user = User.builder()
 				.name("Alex Turner")
-				.email("alexturner@am.com.br")
+				.email(UUID.randomUUID() + "alexturner@am.com.br")
 				.password("123456")
 				.id(UUID.randomUUID())
 				.build();

@@ -13,7 +13,7 @@ public interface UserMapper extends EntityMapper<User, UserDTO> {
 
 	@Mapping(source = "createdAt", target = "createdAt", dateFormat = "yyyy-MM-dd HH:mm")
 	@Mapping(source = "updatedAt", target = "updatedAt", dateFormat = "yyyy-MM-dd HH:mm")
-	@Mapping(source = "active", target = "active", defaultExpression = "java(false)")
+	@Mapping(source = "active", target = "active", defaultExpression = "java(true)")
 	UserDTO toDTO(User user);
 
 	@Mapping(target = "token", source = "token",
