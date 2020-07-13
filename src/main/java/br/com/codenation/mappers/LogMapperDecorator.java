@@ -17,6 +17,9 @@ public abstract class LogMapperDecorator implements LogMapper {
 
     @Override
     public LogDTO toDTO(Log source) {
+        if(source == null){
+            return null;
+        }
         LogDTO logDTO = delegate.toDTO(source);
         logDTO.setEvents(logService.countEvents(source.getId()));
         return logDTO;

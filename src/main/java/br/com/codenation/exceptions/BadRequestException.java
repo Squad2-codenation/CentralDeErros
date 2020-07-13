@@ -1,18 +1,13 @@
 package br.com.codenation.exceptions;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class BadRequestException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	
 	private final String detail;
-    private final Integer status;
-
-    public BadRequestException(String message, String detail, Integer status) {
-        super(message);
-        this.detail = detail;
-        this.status = status;
-    }
 
 }

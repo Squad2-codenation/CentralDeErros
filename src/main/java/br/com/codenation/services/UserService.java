@@ -1,18 +1,12 @@
 package br.com.codenation.services;
 
-import static br.com.codenation.specifications.GenericSpecificationBuilder.filterRecords;
-
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import br.com.codenation.dtos.UserDTO;
-import br.com.codenation.utils.TokenUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import br.com.codenation.entities.User;
 import br.com.codenation.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class UserService extends BaseService<UserRepository, User, UUID> {
@@ -22,23 +16,11 @@ public class UserService extends BaseService<UserRepository, User, UUID> {
 		super(repository);
 	}
 
-	public void delete(UUID id) {
+	public void updateActive(UUID id, Boolean value) {
 		repository.findById(id).ifPresent(user -> {
-			user.setActive(false);
+			user.setActive(value);
 			save(user);
 		});
 	}
 
-	public User create(UserDTO userDTO) {
-		return repository.save(User.builder()
-				.name(userDTO.getName())
-				.email(userDTO.getEmail())
-				.token(TokenUtil.tokenGenerator(userDTO.getEmail(), userDTO.getName()))
-//				.password(userDTO.getPassword())
-				.build());
-	}
-
-	public List<User> findWithFilters(Map<Class<?>, Class<?>> params) {
-		return repository.findAll(filterRecords(params));
-	}
 }
