@@ -5,7 +5,6 @@ import br.com.codenation.entities.User;
 import br.com.codenation.mappers.UserMapper;
 import br.com.codenation.repositories.UserRepository;
 import br.com.codenation.services.UserService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
-@Api(value = "Responsável pelo controle de usuários da aplicação.")
 public class UserController extends BaseController<UserService, UserMapper, UserRepository, User, UserDTO, UUID> {
 
     @Autowired
