@@ -38,7 +38,6 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
                 .build();
     }
 
-    //Handler generico para ver possiveis excecoes --- EXCLUIR
     @ResponseBody
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
