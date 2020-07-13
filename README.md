@@ -69,7 +69,7 @@
 ## Tarefas realizadas
 <p>
   <img src="https://img.shields.io/badge/DEVOPS-5%20TAREFAS-blue"/> 
-  <img src="https://img.shields.io/badge/REALIZADAS-5%25-green"/>
+  <img src="https://img.shields.io/badge/REALIZADAS-100%25-green"/>
 </p>
 <p>
   <img src="https://img.shields.io/badge/BACKEND-34%20TAREFAS-blue"/> 
