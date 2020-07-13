@@ -52,7 +52,7 @@ public class ApplicationControllerTest {
 
 		Application application2 = createApplication("189.90.2.100");
 
-		ResultActions perform = mvc.perform(get("/application").contentType(MediaType.APPLICATION_JSON_VALUE))
+		ResultActions perform = mvc.perform(get("/application?orderBy=name").contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.content", hasSize(2)));
 
 		perform.andExpect(jsonPath("$.content[0].id", is(application1.getId().toString())));
@@ -174,7 +174,6 @@ public class ApplicationControllerTest {
 	private Application createApplication(String name) {
 		Application application = Application.builder()
 				.name(name)
-				.id(UUID.randomUUID())
 				.token(String.valueOf(new Random().nextInt()))
 				.build();
 		return applicationService.save(application);

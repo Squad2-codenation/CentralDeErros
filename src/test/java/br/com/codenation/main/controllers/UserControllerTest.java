@@ -41,11 +41,11 @@ public class UserControllerTest {
     @Test
     @Transactional
     public void user_shouldReturnAllUsers() throws Exception{
-        User user1 = createUser("Joao Arnaldo de Freitas", "jão@joao.com.br-joao", "jarnaldo@teste.com", true);
+        User user1 = createUser("Arnaldo de Freitas", "jão@joao.com.br-joao", "jarnaldo@teste.com", true);
 
         User user2 = createUser("Harry Potter", "sapoChocolate-teste2", "reuri@poti.com", true);
 
-        ResultActions perform = mvc.perform(get("/user")
+        ResultActions perform = mvc.perform(get("/user?orderBy=name")
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content", hasSize(2)));

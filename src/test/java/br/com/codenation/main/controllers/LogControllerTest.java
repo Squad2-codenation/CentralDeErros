@@ -57,16 +57,16 @@ public class LogControllerTest {
 		Log log1 = createFirstLog();
 		Log log2 = createSecondLog();
 
-		ResultActions perform = mvc.perform(get("/log").contentType(MediaType.APPLICATION_JSON_VALUE))
+		ResultActions perform = mvc.perform(get("/log?orderBy=title").contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.content", hasSize(2)));
 		
-		perform.andExpect(jsonPath("$.content[0].id", is(log2.getId().toString())));
-		perform.andExpect(jsonPath("$.content[0].title", is(log2.getTitle())));
-		perform.andExpect(jsonPath("$.content[0].details", is(log2.getDetails())));
+		perform.andExpect(jsonPath("$.content[0].id", is(log1.getId().toString())));
+		perform.andExpect(jsonPath("$.content[0].title", is(log1.getTitle())));
+		perform.andExpect(jsonPath("$.content[0].details", is(log1.getDetails())));
 
-		perform.andExpect(jsonPath("$.content[1].id", is(log1.getId().toString())));
-		perform.andExpect(jsonPath("$.content[1].title", is(log1.getTitle())));
-		perform.andExpect(jsonPath("$.content[1].details", is(log1.getDetails())));
+		perform.andExpect(jsonPath("$.content[1].id", is(log2.getId().toString())));
+		perform.andExpect(jsonPath("$.content[1].title", is(log2.getTitle())));
+		perform.andExpect(jsonPath("$.content[1].details", is(log2.getDetails())));
 	}
 	
 	@Test 
@@ -204,7 +204,6 @@ public class LogControllerTest {
 				.environment(EnvironmentEnum.DEVELOPMENT)
 				.level(LevelEnum.DEBUG)
 				.user(createUser())
-				.id(UUID.randomUUID())
 				.build();	
 		
 		return logService.save(log);
@@ -212,13 +211,12 @@ public class LogControllerTest {
 	
 	private Log createSecondLog() {
 		Log log = Log.builder()
-				.title("acceleration.Service.AddCompany: <forbidden>")
+				.title("service.AddCompany: <forbidden>")
 				.details("File \"/br/com/codenation/service/CompanyService.java\", line 83, in findAll")
 				.application(createApplication())
 				.environment(EnvironmentEnum.HOMOLOGATION)
 				.level(LevelEnum.ERROR)
 				.user(createUser())
-				.id(UUID.randomUUID())
 				.build();		
 		
 		return logService.save(log);
@@ -227,7 +225,6 @@ public class LogControllerTest {
 	private Application createApplication() {
 		Application application = Application.builder()
 				.name("127.0.0.1" + UUID.randomUUID())
-				.id(UUID.randomUUID())
 				.token(String.valueOf(new Random().nextInt()))
 				.build();
 		
@@ -239,7 +236,6 @@ public class LogControllerTest {
 				.name("Alex Turner")
 				.email(UUID.randomUUID() + "alexturner@am.com.br")
 				.password("123456")
-				.id(UUID.randomUUID())
 				.build();
 		
 		return userService.save(user);
