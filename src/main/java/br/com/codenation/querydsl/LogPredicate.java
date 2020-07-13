@@ -17,14 +17,13 @@ public class LogPredicate {
 	public BooleanExpression getPredicate() {
         PathBuilder<Log> entityPath = new PathBuilder<>(Log.class, "log");
         
-        switch (criteria.getKey().toString()) {
+        switch (criteria.getKey()) {
         	case "environment":
         		return getEnvironment(entityPath);
         	case "level":
         		return getLevel(entityPath);
         	case "application":
         		return getApplication(entityPath);
-        		
         }
         
         return null;
@@ -47,7 +46,7 @@ public class LogPredicate {
 	}
 
 	private BooleanExpression getApplication(PathBuilder<Log> entityPath) {
-    	PathBuilder<Application> path = entityPath.get(criteria.getKey().toString(), Application.class);
+    	PathBuilder<Application> path = entityPath.get(criteria.getKey(), Application.class);
         if (criteria.getOperation().equalsIgnoreCase(":")) {
             return path.get("name").eq(criteria.getValue().toString());
         }   

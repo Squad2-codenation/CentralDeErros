@@ -48,19 +48,19 @@ public class UserControllerTest {
         ResultActions perform = mvc.perform(get("/user")
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)));
+                .andExpect(jsonPath("$.content", hasSize(2)));
 
-        perform.andExpect(jsonPath("$[0].id", is(user1.getId().toString())));
-        perform.andExpect(jsonPath("$[0].name", is(user1.getName())));
-        perform.andExpect(jsonPath("$[0].token", is(user1.getToken())));
-        perform.andExpect(jsonPath("$[0].email", is(user1.getEmail())));
-        perform.andExpect(jsonPath("$[0].active", is(user1.getActive())));
+        perform.andExpect(jsonPath("$.content[0].id", is(user1.getId().toString())));
+        perform.andExpect(jsonPath("$.content[0].name", is(user1.getName())));
+        perform.andExpect(jsonPath("$.content[0].token", is(user1.getToken())));
+        perform.andExpect(jsonPath("$.content[0].email", is(user1.getEmail())));
+        perform.andExpect(jsonPath("$.content[0].active", is(user1.getActive())));
 
-        perform.andExpect(jsonPath("$[1].id", is(user2.getId().toString())));
-        perform.andExpect(jsonPath("$[1].name", is(user2.getName())));
-        perform.andExpect(jsonPath("$[1].token", is(user2.getToken())));
-        perform.andExpect(jsonPath("$[1].email", is(user2.getEmail())));
-        perform.andExpect(jsonPath("$[1].active", is(user2.getActive())));
+        perform.andExpect(jsonPath("$.content[1].id", is(user2.getId().toString())));
+        perform.andExpect(jsonPath("$.content[1].name", is(user2.getName())));
+        perform.andExpect(jsonPath("$.content[1].token", is(user2.getToken())));
+        perform.andExpect(jsonPath("$.content[1].email", is(user2.getEmail())));
+        perform.andExpect(jsonPath("$.content[1].active", is(user2.getActive())));
     }
   
     @Test
@@ -181,7 +181,6 @@ public class UserControllerTest {
     private User createUser(String name, String password, String email, Boolean active){
         Random rand = new Random();
         User user = User.builder()
-                .id(UUID.randomUUID())
                 .name(name)
                 .password(password)
                 .token(String.valueOf((rand.nextInt())))

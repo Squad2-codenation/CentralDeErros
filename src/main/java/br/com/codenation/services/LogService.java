@@ -23,7 +23,7 @@ public class LogService extends BaseService<LogRepository, Log, UUID> {
 		super(repository);
 	}
 	
-	public Iterable<Log> findWithFilters(String search, Pageable pageable) {
+	public Page<Log> findWithFilters(String search, Pageable pageable) {
 		LogPredicatesBuilder builder = new LogPredicatesBuilder();
 		
 		if (search != null) {

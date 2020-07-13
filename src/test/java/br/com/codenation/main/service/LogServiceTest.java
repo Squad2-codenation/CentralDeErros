@@ -138,7 +138,7 @@ public class LogServiceTest {
 	
 	private Application createApplication() {
 		Application application = Application.builder()
-				.name("127.0.0.1")
+				.name(UUID.randomUUID() + "127.0.0.1")
 				.id(UUID.randomUUID())
 				.token(String.valueOf(new Random().nextInt()))
 				.build();
@@ -149,7 +149,7 @@ public class LogServiceTest {
 	private br.com.codenation.entities.User createUser() {
 		br.com.codenation.entities.User user = br.com.codenation.entities.User.builder()
 				.name("Alex Turner")
-				.email("alexturner@am.com.br")
+				.email(UUID.randomUUID() + "alexturner@am.com.br")
 				.password("123456")
 				.id(UUID.randomUUID())
 				.build();

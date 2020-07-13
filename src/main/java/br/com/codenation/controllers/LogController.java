@@ -30,19 +30,16 @@ public class LogController extends BaseController<LogService, LogMapper, LogRepo
 
 	@GetMapping("/filter")
 	@ResponseStatus(HttpStatus.OK)
-	public Iterable<LogDTO> listFilters(@RequestParam(value = "search", required = false) String search,
+	public Page<LogDTO> listFilters(@RequestParam(value = "search", required = false) String search,
 			@RequestParam(value = "page", required = false, defaultValue = "0") int page,
 			@RequestParam(value = "size", required = false, defaultValue = "5") int size,
 			@RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
 			@RequestParam(value = "direction", defaultValue = "asc") String direction) {
 		
 		PageRequest pageRequest = PageRequest.of(page, size, Direction.fromString(direction), orderBy);
+
 		
-		List<Log> result = new ArrayList<>();	
-		
-		service.findWithFilters(search, pageRequest).forEach(result::add);
-		
-		return result.stream().map(mapper::toDTO).collect(Collectors.toList());
+		return service.findWithFilters(search, pageRequest).map(e -> mapper.toDTO(e));
 	}
 
 	@PostMapping("/{id}/archive")
